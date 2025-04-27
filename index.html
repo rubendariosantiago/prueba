@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecuaciones Diferenciales Lineales de Primer Orden</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; margin: 20px; }
+    h2, h3 { color: #333; }
+    .explanation { margin-bottom: 20px; }
+    .question { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+    .options label { display: block; margin-bottom: 5px; }
+    .feedback { margin-top: 10px; font-weight: bold; }
+    #generador-ed { margin-top: 30px; border: 1px solid #aaa; padding: 15px; border-radius: 5px; }
+    #solucionPasos { margin-top: 20px; }
+    button { padding: 10px 15px; cursor: pointer; border: 1px solid #555; border-radius: 5px; background-color: #f0f0f0; }
+    button:hover { background-color: #e0e0e0; }
+  </style>
+</head>
+<body>
+
+  <h2>Ecuaciones Diferenciales Lineales de Primer Orden</h2>
+
+  <div class="explanation">
+    <h3>Introducción</h3>
+    <p>Una <strong>ecuación diferencial</strong> es una ecuación que relaciona una función con sus derivadas. Una <strong>ecuación diferencial lineal de primer orden</strong> tiene la forma general:</p>
+    <p>$\frac{dy}{dx} + P(x)y = Q(x)$</p>
+    <p>donde $P(x)$ y $Q(x)$ son funciones de $x$.</p>
+  </div>
+
+  <div class="question">
+    <h3>Pregunta 1: Verdadero o Falso</h3>
+    <p>La ecuación diferencial $\frac{dy}{dx} + y^2 = x$ es una ecuación diferencial lineal de primer orden.</p>
+    <label><input type="radio" name="q1" value="false"> Falso</label>
+    <label><input type="radio" name="q1" value="true"> Verdadero</label>
+    <div id="feedback1" class="feedback"></div>
+  </div>
+
+  <div class="explanation">
+    <h3>Método de Solución: Factor Integrante</h3>
+    <p>El método del factor integrante transforma la ecuación en una forma integrable. El factor integrante $\mu(x)$ se define como:</p>
+    <p>$\mu(x) = e^{\int P(x) dx}$</p>
+    <p>Multiplicando la ecuación por $\mu(x)$, el lado izquierdo se convierte en la derivada de $(\mu(x) y(x))$:</p>
+    <p>$\frac{d}{dx} [\mu(x) y(x)] = \mu(x) Q(x)$</p>
+    <p>Integrando ambos lados y despejando $y(x)$, obtenemos la solución general.</p>
+  </div>
+
+  <div class="question">
+    <h3>Pregunta 2: Opción Múltiple</h3>
+    <p>¿Cuál es el primer paso para resolver la ecuación diferencial $\frac{dy}{dx} - 3y = x$ utilizando el método del factor integrante?</p>
+    <div class="options">
+      <label><input type="radio" name="q2" value="a"> a) Integrar ambos lados con respecto a $x$.</label>
+      <label><input type="radio" name="q2" value="b"> b) Encontrar el factor integrante $\mu(x) = e^{\int -3 dx}$.</label>
+      <label><input type="radio" name="q2" value="c"> c) Despejar $y(x)$.</label>
+      <label><input type="radio" name="q2" value="d"> d) Multiplicar toda la ecuación por $x$.</label>
+    </div>
+    <div id="feedback2" class="feedback"></div>
+  </div>
+
+  <div id="generador-ed">
+    <h3>Generador de Ecuaciones Diferenciales</h3>
+    <button id="generarEcuacionBtn">Generar Nueva Ecuación</button>
+    <div id="ecuacionGenerada"></div>
+    <button id="mostrarSolucionBtn" disabled>Mostrar Solución Paso a Paso</button>
+    <div id="solucionPasos"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const q1Respuestas = {
+        false: "¡Correcto! La presencia de $y^2$ hace que la ecuación no sea lineal.",
+        true: "Incorrecto. Para ser lineal, $y$ y sus derivadas deben tener potencia 1 y no multiplicarse entre sí."
+      };
+
+      const q2Respuestas = {
+        a: "Incorrecto. La integración es un paso posterior.",
+        b: "¡Correcto! El primer paso es encontrar el factor integrante.",
+        c: "Incorrecto. Despejar $y(x)$ es el último paso.",
+        d: "Incorrecto. Multiplicar por $x$ no es parte del método del factor integrante."
+      };
+
+      const generarEcuacionBtn = document.getElementById('generarEcuacionBtn');
+      const ecuacionGeneradaDiv = document.getElementById('ecuacionGenerada');
+      const mostrarSolucionBtn = document.getElementById('mostrarSolucionBtn');
+      const solucionPasosDiv = document.getElementById('solucionPasos');
+      const feedback1Div = document.getElementById('feedback1');
+      const feedback2Div = document.getElementById('feedback2');
+
+      let parametrosGenerados;
+
+      // Funciones de retroalimentación para las preguntas
+      document.querySelectorAll('input[name="q1"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          feedback1Div.textContent = q1Respuestas[radio.value];
+        });
+      });
+
+      document.querySelectorAll('input[name="q2"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          feedback2Div.textContent = q2Respuestas[radio.value];
+        });
+      });
+
+      function generarParametros() {
+        const q = Math.floor(Math.random() * 10 - 5);
+        const b = Math.floor(Math.random() * 21 - 10);
+        const c = Math.floor(Math.random() * 11 - 5);
+        return {
+          q: q === 0 ? (Math.random() < 0.5 ? 1 : -1) * Math.floor(Math.random() * 4 + 1) : q,
+          b: b,
+          c: c
+        };
+      }
+
+      function mostrarEcuacion(parametros) {
+        ecuacionGeneradaDiv.innerHTML = `Ecuación: $\\frac{dy}{dx} + ${parametros.q}y = ${parametros.b}$, con $y(0) = ${parametros.c}$`;
+        MathJax.typesetPromise();
+      }
+
+      generarEcuacionBtn.addEventListener('click', () => {
+        parametrosGenerados = generarParametros();
+        mostrarEcuacion(parametrosGenerados);
+        solucionPasosDiv.innerHTML = '';
+        mostrarSolucionBtn.disabled = false;
+      });
+
+      mostrarSolucionBtn.addEventListener('click', () => {
+        if (parametrosGenerados) {
+          resolverED(parametrosGenerados);
+        } else {
+          solucionPasosDiv.innerHTML = 'Por favor, genera una ecuación primero.';
+        }
+      });
+
+      function resolverED(parametros) {
+        const q = parametros.q;
+        const b = parametros.b;
+        const c = parametros.c;
+        let pasosSolucion = [];
+
+        pasosSolucion.push(`**Paso 1:** Identificamos $P(x) = ${q}$ y $Q(x) = ${b}$.`);
+        const factorIntegrante = `e^{${q}x}`;
+        pasosSolucion.push(`**Paso 2:** El factor integrante es $\\mu(x) = e^{\\int P(x) dx} = e^{\\int ${q} dx} = ${factorIntegrante}$.`);
+        pasosSolucion.push(`**Paso 3:** Multiplicamos la ED por $\\mu(x)$: $\\frac{d}{dx}(y ${factorIntegrante}) = ${b}${factorIntegrante}$.`);
+        pasosSolucion.push(`**Paso 4:** Integramos ambos lados: $y ${factorIntegrante} = \\int ${b}e^{${q}x} dx$.`);
+
+        let integralResultado;
+        if (q === 0) {
+          integralResultado = `${b}x + C_1`;
+        } else {
+          integralResultado = `\\frac{${b}}{${q}}e^{${q}x} + C_1`;
+        }
+        pasosSolucion.push(`Esto da: $y ${factorIntegrante} = ${integralResultado}$.`);
+
+        let yGeneral;
+        if (q === 0) {
+          yGeneral = `${b}x + C_1`;
+        } else {
+          yGeneral = `\\frac{${b}}{${q}} + C_1e^{-${q}x}`;
+        }
+        pasosSolucion.push(`**Paso 5:** Despejamos $y(x)$: $y(x) = ${yGeneral}$.`);
+
+        let constanteC;
+        if (q === 0) {
+          constanteC = `${c} = ${b}(0) + C_1 \\implies C_1 = ${c}`;
+        } else {
+          constanteC = `${c} = \\frac{${b}}{${q}} + C_1 \\implies C_1 = ${c} - \\frac{${b}}{${q}} = \\frac{${c}q - ${b}}{${q}}`;
+        }
+        pasosSolucion.push(`**Paso 6:** Usando $y(0) = ${c}$, encontramos $C_1 = ${constanteC.split('=')[1].trim()}.`);
+
+        let solucionParticular;
+        if (q === 0) {
+          solucionParticular = `y(x) = ${b}x + ${c}`;
+        } else {
+          solucionParticular = `y(x) = \\frac{${b}}{${q}} + (\\frac{${c}q - ${b}}{${q}})e^{-${q}x}`;
+        }
+        pasosSolucion.push(`**Paso 7:** La solución particular es: $y(x) = ${solucionParticular}$.`);
+
+        solucionPasosDiv.innerHTML = pasosSolucion.join('<br><br>');
+        MathJax.typesetPromise();
+      }
+    });
+  </script>
+
+</body>
+</html>
