@@ -11,47 +11,141 @@
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
-    body { font-family: sans-serif; line-height: 1.6; margin: 20px; }
-    h2, h3 { color: #333; }
-    .explanation { margin-bottom: 20px; }
-    .question { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
-    .options label { display: block; margin-bottom: 5px; }
-    .feedback { margin-top: 10px; font-weight: bold; }
-    #generador-ed { margin-top: 30px; border: 1px solid #aaa; padding: 15px; border-radius: 5px; }
-    #solucionPasos { margin-top: 20px; }
-    button { padding: 10px 15px; cursor: pointer; border: 1px solid #555; border-radius: 5px; background-color: #f0f0f0; }
-    button:hover { background-color: #e0e0e0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Una fuente moderna y legible */
+      line-height: 1.7; /* Un poco más de espacio entre líneas para facilitar la lectura */
+      margin: 30px; /* Un margen un poco mayor */
+      background-color: #f4f7f6; /* Un fondo suave */
+      color: #333; /* Color de texto principal */
+    }
+    h2, h3, h4 {
+      color: #2c3e50; /* Un color más definido para los encabezados */
+    }
+    h3 {
+      border-bottom: 2px solid #bdc3c7; /* Línea sutil bajo los subítulos */
+      padding-bottom: 5px;
+      margin-top: 25px;
+    }
+    .explanation {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #fff; /* Fondo blanco para las explicaciones */
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    }
+    .question {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .options label {
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer; /* Indica que las etiquetas son clickeables */
+    }
+    .options input[type="radio"] {
+      margin-right: 8px;
+    }
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #27ae60; /* Verde para retroalimentación positiva */
+    }
+    .feedback.incorrect {
+      color: #c0392b; /* Rojo para retroalimentación negativa */
+    }
+    #generador-ed {
+      margin-top: 40px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    #solucionPasos {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f9f9f9; /* Un fondo ligeramente grisáceo para la solución */
+      border: 1px solid #eee;
+      border-radius: 8px;
+      white-space: pre-wrap; /* Respeta los saltos de línea */
+    }
+    button {
+      padding: 12px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #3498db; /* Un color azul llamativo para los botones */
+      color: #fff;
+      font-size: 1rem;
+      transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+      margin-right: 10px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    button:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+    #ecuacionGenerada {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #e6f7ff; /* Un fondo claro para la ecuación generada */
+      border-radius: 4px;
+      border: 1px solid #ccebff;
+    }
   </style>
 </head>
 <body>
 
   <h2>Ecuaciones Diferenciales Lineales de Primer Orden</h2>
 
-  <div class="explanation">
+  <div id="seccion-introduccion">
     <h3>Introducción</h3>
-    <p>Una <strong>ecuación diferencial</strong> es una ecuación que relaciona una función con sus derivadas. Una <strong>ecuación diferencial lineal de primer orden</strong> tiene la forma general:</p>
+    <p>Imagina que tienes una función $y = y(x)$ y conoces la relación que existe entre esta función y su primera derivada, $y' = \frac{dy}{dx}$. Una <strong>ecuación diferencial</strong> es precisamente una ecuación que involucra a una función y sus derivadas.</p>
+    <p>En particular, una <strong>ecuación diferencial lineal de primer orden</strong> tiene una forma muy específica que podemos escribir de la siguiente manera:</p>
     <p>$\frac{dy}{dx} + P(x)y = Q(x)$</p>
-    <p>donde $P(x)$ y $Q(x)$ son funciones de $x$.</p>
+    <p>Donde $P(x)$ y $Q(x)$ son funciones que dependen únicamente de la variable independiente $x$ (o pueden ser constantes). La clave aquí es que la función $y$ y su primera derivada $y'$ aparecen de forma lineal; es decir, elevadas a la potencia de uno y no multiplicándose entre sí.</p>
+    <h4>¿Por qué son importantes estas ecuaciones?</h4>
+    <p>Las ecuaciones diferenciales lineales de primer orden aparecen en muchísimos problemas de la vida real y en diversas áreas de la ciencia e ingeniería. Por ejemplo, modelan fenómenos como:</p>
+    <ul>
+      <li>El crecimiento o decrecimiento de poblaciones.</li>
+      <li>La desintegración radiactiva.</li>
+      <li>El enfriamiento o calentamiento de objetos.</li>
+      <li>Circuitos eléctricos simples (con resistencias y inductores o capacitores).</li>
+      <li>Mezclas de sustancias.</li>
+    </ul>
+    <h4>Un ejemplo sencillo:</h4>
+    <p>Considera la ecuación diferencial:</p>
+    <p>$\frac{dy}{dx} + 2y = e^{-x}$</p>
+    <p>Aquí, $P(x) = 2$ y $Q(x) = e^{-x}$. Nuestro objetivo al resolver una ecuación diferencial es encontrar la función $y(x)$ que satisface esta igualdad.</p>
+    <button id="continuar-intro">Continuar</button>
   </div>
 
-  <div class="question">
+  <div id="seccion-pregunta1" style="display: none;">
     <h3>Pregunta 1: Verdadero o Falso</h3>
     <p>La ecuación diferencial $\frac{dy}{dx} + y^2 = x$ es una ecuación diferencial lineal de primer orden.</p>
     <label><input type="radio" name="q1" value="false"> Falso</label>
     <label><input type="radio" name="q1" value="true"> Verdadero</label>
     <div id="feedback1" class="feedback"></div>
+    <button id="continuar-q1" disabled>Continuar</button>
   </div>
 
-  <div class="explanation">
+  <div id="seccion-metodo" style="display: none;">
     <h3>Método de Solución: Factor Integrante</h3>
     <p>El método del factor integrante transforma la ecuación en una forma integrable. El factor integrante $\mu(x)$ se define como:</p>
     <p>$\mu(x) = e^{\int P(x) dx}$</p>
     <p>Multiplicando la ecuación por $\mu(x)$, el lado izquierdo se convierte en la derivada de $(\mu(x) y(x))$:</p>
     <p>$\frac{d}{dx} [\mu(x) y(x)] = \mu(x) Q(x)$</p>
     <p>Integrando ambos lados y despejando $y(x)$, obtenemos la solución general.</p>
+    <button id="continuar-metodo">Continuar</button>
   </div>
 
-  <div class="question">
+  <div id="seccion-pregunta2" style="display: none;">
     <h3>Pregunta 2: Opción Múltiple</h3>
     <p>¿Cuál es el primer paso para resolver la ecuación diferencial $\frac{dy}{dx} - 3y = x$ utilizando el método del factor integrante?</p>
     <div class="options">
@@ -61,9 +155,10 @@
       <label><input type="radio" name="q2" value="d"> d) Multiplicar toda la ecuación por $x$.</label>
     </div>
     <div id="feedback2" class="feedback"></div>
+    <button id="continuar-q2" disabled>Continuar</button>
   </div>
 
-  <div id="generador-ed">
+  <div id="generador-ed" style="display: none;">
     <h3>Generador de Ecuaciones Diferenciales</h3>
     <button id="generarEcuacionBtn">Generar Nueva Ecuación</button>
     <div id="ecuacionGenerada"></div>
@@ -85,26 +180,74 @@
         d: "Incorrecto. Multiplicar por $x$ no es parte del método del factor integrante."
       };
 
-      const generarEcuacionBtn = document.getElementById('generarEcuacionBtn');
-      const ecuacionGeneradaDiv = document.getElementById('ecuacionGenerada');
-      const mostrarSolucionBtn = document.getElementById('mostrarSolucionBtn');
-      const solucionPasosDiv = document.getElementById('solucionPasos');
-      const feedback1Div = document.getElementById('feedback1');
-      const feedback2Div = document.getElementById('feedback2');
+      const secciones = [
+        'seccion-introduccion',
+        'seccion-pregunta1',
+        'seccion-metodo',
+        'seccion-pregunta2',
+        'generador-ed'
+      ];
+      let indiceSeccionActual = 0;
 
-      let parametrosGenerados;
+      function mostrarSeccion(id) {
+        secciones.forEach(seccionId => {
+          document.getElementById(seccionId).style.display = (seccionId === id) ? 'block' : 'none';
+        });
+      }
 
-      // Funciones de retroalimentación para las preguntas
+      // Mostrar la primera sección al cargar la página
+      mostrarSeccion(secciones[0]);
+
+      // Lógica para avanzar entre secciones con botones "Continuar"
+      document.getElementById('continuar-intro').addEventListener('click', () => {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
+      });
+
       document.querySelectorAll('input[name="q1"]').forEach(radio => {
         radio.addEventListener('change', () => {
-          feedback1Div.textContent = q1Respuestas[radio.value];
+          document.getElementById('feedback1').textContent = q1Respuestas[radio.value];
+          document.getElementById('continuar-q1').disabled = false;
         });
+      });
+
+      document.getElementById('continuar-q1').addEventListener('click', () => {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
       });
 
       document.querySelectorAll('input[name="q2"]').forEach(radio => {
         radio.addEventListener('change', () => {
-          feedback2Div.textContent = q2Respuestas[radio.value];
+          document.getElementById('feedback2').textContent = q2Respuestas[radio.value];
+          document.getElementById('continuar-q2').disabled = false;
         });
+      });
+
+      document.getElementById('continuar-q2').addEventListener('click', () => {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
+      });
+
+      // Lógica del generador de ecuaciones (sin cambios por ahora)
+      const generarEcuacionBtn = document.getElementById('generarEcuacionBtn');
+      const ecuacionGeneradaDiv = document.getElementById('ecuacionGenerada');
+      const mostrarSolucionBtn = document.getElementById('mostrarSolucionBtn');
+      const solucionPasosDiv = document.getElementById('solucionPasos');
+      let parametrosGenerados;
+
+      generarEcuacionBtn.addEventListener('click', () => {
+        parametrosGenerados = generarParametros();
+        mostrarEcuacion(parametrosGenerados);
+        solucionPasosDiv.innerHTML = '';
+        mostrarSolucionBtn.disabled = false;
+      });
+
+      mostrarSolucionBtn.addEventListener('click', () => {
+        if (parametrosGenerados) {
+          resolverED(parametrosGenerados);
+        } else {
+          solucionPasosDiv.innerHTML = 'Por favor, genera una ecuación primero.';
+        }
       });
 
       function generarParametros() {
@@ -122,21 +265,6 @@
         ecuacionGeneradaDiv.innerHTML = `Ecuación: $\\frac{dy}{dx} + ${parametros.q}y = ${parametros.b}$, con $y(0) = ${parametros.c}$`;
         MathJax.typesetPromise();
       }
-
-      generarEcuacionBtn.addEventListener('click', () => {
-        parametrosGenerados = generarParametros();
-        mostrarEcuacion(parametrosGenerados);
-        solucionPasosDiv.innerHTML = '';
-        mostrarSolucionBtn.disabled = false;
-      });
-
-      mostrarSolucionBtn.addEventListener('click', () => {
-        if (parametrosGenerados) {
-          resolverED(parametrosGenerados);
-        } else {
-          solucionPasosDiv.innerHTML = 'Por favor, genera una ecuación primero.';
-        }
-      });
 
       function resolverED(parametros) {
         const q = parametros.q;
