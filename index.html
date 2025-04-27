@@ -12,26 +12,26 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Una fuente moderna y legible */
-      line-height: 1.7; /* Un poco más de espacio entre líneas para facilitar la lectura */
-      margin: 30px; /* Un margen un poco mayor */
-      background-color: #f4f7f6; /* Un fondo suave */
-      color: #333; /* Color de texto principal */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      margin: 30px;
+      background-color: #f4f7f6;
+      color: #333;
     }
     h2, h3, h4 {
-      color: #2c3e50; /* Un color más definido para los encabezados */
+      color: #2c3e50;
     }
     h3 {
-      border-bottom: 2px solid #bdc3c7; /* Línea sutil bajo los subítulos */
+      border-bottom: 2px solid #bdc3c7;
       padding-bottom: 5px;
       margin-top: 25px;
     }
     .explanation {
       margin-bottom: 30px;
       padding: 20px;
-      background-color: #fff; /* Fondo blanco para las explicaciones */
+      background-color: #fff;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .question {
       margin-bottom: 30px;
@@ -44,7 +44,7 @@
     .options label {
       display: block;
       margin-bottom: 10px;
-      cursor: pointer; /* Indica que las etiquetas son clickeables */
+      cursor: pointer;
     }
     .options input[type="radio"] {
       margin-right: 8px;
@@ -52,10 +52,10 @@
     .feedback {
       margin-top: 15px;
       font-weight: bold;
-      color: #27ae60; /* Verde para retroalimentación positiva */
+      color: #27ae60;
     }
     .feedback.incorrect {
-      color: #c0392b; /* Rojo para retroalimentación negativa */
+      color: #c0392b;
     }
     #generador-ed {
       margin-top: 40px;
@@ -68,20 +68,20 @@
     #solucionPasos {
       margin-top: 30px;
       padding: 20px;
-      background-color: #f9f9f9; /* Un fondo ligeramente grisáceo para la solución */
+      background-color: #f9f9f9;
       border: 1px solid #eee;
       border-radius: 8px;
-      white-space: pre-wrap; /* Respeta los saltos de línea */
+      white-space: pre-wrap;
     }
     button {
       padding: 12px 20px;
       cursor: pointer;
       border: none;
       border-radius: 6px;
-      background-color: #3498db; /* Un color azul llamativo para los botones */
+      background-color: #3498db;
       color: #fff;
       font-size: 1rem;
-      transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+      transition: background-color 0.3s ease;
       margin-right: 10px;
     }
     button:hover {
@@ -94,7 +94,7 @@
     #ecuacionGenerada {
       margin-top: 15px;
       padding: 10px;
-      background-color: #e6f7ff; /* Un fondo claro para la ecuación generada */
+      background-color: #e6f7ff;
       border-radius: 4px;
       border: 1px solid #ccebff;
     }
@@ -206,7 +206,9 @@
 
       document.querySelectorAll('input[name="q1"]').forEach(radio => {
         radio.addEventListener('change', () => {
-          document.getElementById('feedback1').textContent = q1Respuestas[radio.value];
+          const feedbackDiv = document.getElementById('feedback1');
+          const respuestaTexto = q1Respuestas[radio.value];
+          feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
           document.getElementById('continuar-q1').disabled = false;
         });
       });
@@ -216,9 +218,16 @@
         mostrarSeccion(secciones[indiceSeccionActual]);
       });
 
+      document.getElementById('continuar-metodo').addEventListener('click', () => {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
+      });
+
       document.querySelectorAll('input[name="q2"]').forEach(radio => {
         radio.addEventListener('change', () => {
-          document.getElementById('feedback2').textContent = q2Respuestas[radio.value];
+          const feedbackDiv = document.getElementById('feedback2');
+          const respuestaTexto = q2Respuestas[radio.value];
+          feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
           document.getElementById('continuar-q2').disabled = false;
         });
       });
