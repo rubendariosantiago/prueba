@@ -6,7 +6,7 @@
   <title>Ecuaciones Diferenciales Lineales de Primer Orden</title>
   <script>
     MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+      tex: { inlineMath: [['<span class="math-inline">', '</span>'], ['\\(', '\\)']] }
     };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -73,6 +73,16 @@
       border-radius: 8px;
       white-space: pre-wrap;
     }
+    #pasos-ejemplo1, #pasos-ejemplo2 {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 8px;
+    }
+    #pasos-ejemplo1 p, #pasos-ejemplo2 p {
+      margin-bottom: 10px;
+    }
     button {
       padding: 12px 20px;
       cursor: pointer;
@@ -83,6 +93,7 @@
       font-size: 1rem;
       transition: background-color 0.3s ease;
       margin-right: 10px;
+      margin-top: 15px;
     }
     button:hover {
       background-color: #2980b9;
@@ -106,10 +117,10 @@
 
   <div id="seccion-introduccion">
     <h3>Introducción</h3>
-    <p>Imagina que tienes una función $y = y(x)$ y conoces la relación que existe entre esta función y su primera derivada, $y' = \frac{dy}{dx}$. Una <strong>ecuación diferencial</strong> es precisamente una ecuación que involucra a una función y sus derivadas.</p>
+    <p>Imagina que tienes una función <span class="math-inline">y \= y\(x\)</span> y conoces la relación que existe entre esta función y su primera derivada, <span class="math-inline">y' \= \\frac\{dy\}\{dx\}</span>. Una <strong>ecuación diferencial</strong> es precisamente una ecuación que involucra a una función y sus derivadas.</p>
     <p>En particular, una <strong>ecuación diferencial lineal de primer orden</strong> tiene una forma muy específica que podemos escribir de la siguiente manera:</p>
-    <p>$\frac{dy}{dx} + P(x)y = Q(x)$</p>
-    <p>Donde $P(x)$ y $Q(x)$ son funciones que dependen únicamente de la variable independiente $x$ (o pueden ser constantes). La clave aquí es que la función $y$ y su primera derivada $y'$ aparecen de forma lineal; es decir, elevadas a la potencia de uno y no multiplicándose entre sí.</p>
+    <p><span class="math-inline">\\frac\{dy\}\{dx\} \+ P\(x\)y \= Q\(x\)</span></p>
+    <p>Donde <span class="math-inline">P\(x\)</span> y <span class="math-inline">Q\(x\)</span> son funciones que dependen únicamente de la variable independiente <span class="math-inline">x</span> (o pueden ser constantes). La clave aquí es que la función <span class="math-inline">y</span> y su primera derivada <span class="math-inline">y'</span> aparecen de forma lineal; es decir, elevadas a la potencia de uno y no multiplicándose entre sí.</p>
     <h4>¿Por qué son importantes estas ecuaciones?</h4>
     <p>Las ecuaciones diferenciales lineales de primer orden aparecen en muchísimos problemas de la vida real y en diversas áreas de la ciencia e ingeniería. Por ejemplo, modelan fenómenos como:</p>
     <ul>
@@ -121,14 +132,14 @@
     </ul>
     <h4>Un ejemplo sencillo:</h4>
     <p>Considera la ecuación diferencial:</p>
-    <p>$\frac{dy}{dx} + 2y = e^{-x}$</p>
-    <p>Aquí, $P(x) = 2$ y $Q(x) = e^{-x}$. Nuestro objetivo al resolver una ecuación diferencial es encontrar la función $y(x)$ que satisface esta igualdad.</p>
+    <p><span class="math-inline">\\frac\{dy\}\{dx\} \+ 2y \= e^\{\-x\}</span></p>
+    <p>Aquí, <span class="math-inline">P\(x\) \= 2</span> y <span class="math-inline">Q\(x\) \= e^\{\-x\}</span>. Nuestro objetivo al resolver una ecuación diferencial es encontrar la función <span class="math-inline">y\(x\)</span> que satisface esta igualdad.</p>
     <button id="continuar-intro">Continuar</button>
   </div>
 
   <div id="seccion-pregunta1" style="display: none;">
     <h3>Pregunta 1: Verdadero o Falso</h3>
-    <p>La ecuación diferencial $\frac{dy}{dx} + y^2 = x$ es una ecuación diferencial lineal de primer orden.</p>
+    <p>La ecuación diferencial <span class="math-inline">\\frac\{dy\}\{dx\} \+ y^2 \= x</span> es una ecuación diferencial lineal de primer orden.</p>
     <label><input type="radio" name="q1" value="false"> Falso</label>
     <label><input type="radio" name="q1" value="true"> Verdadero</label>
     <div id="feedback1" class="feedback"></div>
@@ -137,25 +148,37 @@
 
   <div id="seccion-metodo" style="display: none;">
     <h3>Método de Solución: Factor Integrante</h3>
-    <p>El método del factor integrante transforma la ecuación en una forma integrable. El factor integrante $\mu(x)$ se define como:</p>
-    <p>$\mu(x) = e^{\int P(x) dx}$</p>
-    <p>Multiplicando la ecuación por $\mu(x)$, el lado izquierdo se convierte en la derivada de $(\mu(x) y(x))$:</p>
-    <p>$\frac{d}{dx} [\mu(x) y(x)] = \mu(x) Q(x)$</p>
-    <p>Integrando ambos lados y despejando $y(x)$, obtenemos la solución general.</p>
+    <p>El método del factor integrante transforma la ecuación en una forma integrable. El factor integrante <span class="math-inline">\\mu\(x\)</span> se define como:</p>
+    <p><span class="math-inline">\\mu\(x\) \= e^\{\\int P\(x\) dx\}</span></p>
+    <p>Multiplicando la ecuación por <span class="math-inline">\\mu\(x\)</span>, el lado izquierdo se convierte en la derivada de <span class="math-inline">\(\\mu\(x\) y\(x\)\)</span>:</p>
+    <p><span class="math-inline">\\frac\{d\}\{dx\} \[\\mu\(x\) y\(x\)\] \= \\mu\(x\) Q\(x\)</span></p>
+    <p>Integrando ambos lados y despejando <span class="math-inline">y\(x\)</span>, obtenemos la solución general.</p>
     <button id="continuar-metodo">Continuar</button>
   </div>
 
   <div id="seccion-pregunta2" style="display: none;">
     <h3>Pregunta 2: Opción Múltiple</h3>
-    <p>¿Cuál es el primer paso para resolver la ecuación diferencial $\frac{dy}{dx} - 3y = x$ utilizando el método del factor integrante?</p>
+    <p>¿Cuál es el primer paso para resolver la ecuación diferencial <span class="math-inline">\\frac\{dy\}\{dx\} \- 3y \= x</span> utilizando el método del factor integrante?</p>
     <div class="options">
-      <label><input type="radio" name="q2" value="a"> a) Integrar ambos lados con respecto a $x$.</label>
-      <label><input type="radio" name="q2" value="b"> b) Encontrar el factor integrante $\mu(x) = e^{\int -3 dx}$.</label>
-      <label><input type="radio" name="q2" value="c"> c) Despejar $y(x)$.</label>
-      <label><input type="radio" name="q2" value="d"> d) Multiplicar toda la ecuación por $x$.</label>
+      <label><input type="radio" name="q2" value="a"> a) Integrar ambos lados con respecto a <span class="math-inline">x</span>.</label>
+      <label><input type="radio" name="q2" value="b"> b) Encontrar el factor integrante <span class="math-inline">\\mu\(x\) \= e^\{\\int \-3 dx\}</span>.</label>
+      <label><input type="radio" name="q2" value="c"> c) Despejar <span class="math-inline">y\(x\)</span>.</label>
+      <label><input type="radio" name="q2" value="d"> d) Multiplicar toda la ecuación por <span class="math-inline">x</span>.</label>
     </div>
     <div id="feedback2" class="feedback"></div>
     <button id="continuar-q2" disabled>Continuar</button>
+  </div>
+
+  <div id="seccion-ejemplo1" style="display: none;">
+    <h3>Ejemplo 1: <span class="math-inline">\\frac\{dy\}\{dx\} \+ \\frac\{1\}\{x\}y \= x^2</span>, con <span class="math-inline">y\(1\) \= 0</span></h3>
+    <div id="pasos-ejemplo1"></div>
+    <button id="continuar-ejemplo1" disabled>Continuar</button>
+  </div>
+
+  <div id="seccion-ejemplo2" style="display: none;">
+    <h3>Ejemplo 2: <span class="math-inline">\\frac\{dy\}\{dx\} \- 2y \= \\cos\(x\)</span></h3>
+    <div id="pasos-ejemplo2"></div>
+    <button id="continuar-ejemplo2" disabled>Continuar</button>
   </div>
 
   <div id="generador-ed" style="display: none;">
@@ -167,163 +190,232 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const q1Respuestas = {
-        false: "¡Correcto! La presencia de $y^2$ hace que la ecuación no sea lineal.",
-        true: "Incorrecto. Para ser lineal, $y$ y sus derivadas deben tener potencia 1 y no multiplicarse entre sí."
-      };
+    const ejemplo1 = {
+      ecuacion: "Ecuación: $\\frac{dy}{dx} + \\frac{1}{x}y = x^2$, con $y(1) = 0$",
+      pasos: [
+        "Identificamos la forma general $\\frac{dy}{dx} + P(x)y = Q(x)$. En esta ecuación, $P(x) = \\frac{1}{x}$ y $Q(x) = x^2$.",
+        "Calculamos el factor integrante $\\mu(x) = e^{\\int P(x) dx} = e^{\\int \\frac{1}{x} dx}$.",
+        "La integral de $\\frac{1}{x}$ es $\\ln|x|$. Considerando la condición inicial en $x=1$, tenemos $\\int \\frac{1}{x} dx = \\ln(x)$.",
+        "Por lo tanto, el factor integrante es $\\mu(x) = e^{\\ln(x)} = x$.",
+        "Multiplicamos toda la ecuación diferencial por el factor integrante $x$: $x \\frac{dy}{dx} + y = x^3$.",
+        "El lado izquierdo es la derivada del producto de $y(x)$ y el factor integrante $\\mu(x) = x$: $\\frac{d}{dx}(xy) = x \\frac{dy}{dx} + y$.",
+        "Nuestra ecuación ahora es: $\\frac{d}{dx}(xy) = x^3$.",
+        "Integramos ambos lados con respecto a $x$: $\\int \\frac{d}{dx}(xy) dx = \\int x^3 dx$, lo que nos da $xy = \\frac{x^4}{4} + C$.",
+        "Despejamos $y(x)$: $y(x) = \\frac{x^3}{4} + \\frac{C}{x}$.",
+        "Aplicamos la condición inicial $y(1) = 0$: $0 = \\frac{(1)^3}{4} + \\frac{C}{1}$, lo que implica $C = -\\frac{1}{4}$.",
+        "Sustituimos el valor de $C$ en la solución general para obtener la solución particular: $y(x) = \\frac{x^3}{4} - \\frac{1}{4x}$."
+      ]
+    };
 
-      const q2Respuestas = {
-        a: "Incorrecto. La integración es un paso posterior.",
-        b: "¡Correcto! El primer paso es encontrar el factor integrante.",
-        c: "Incorrecto. Despejar $y(x)$ es el último paso.",
-        d: "Incorrecto. Multiplicar por $x$ no es parte del método del factor integrante."
-      };
+    const ejemplo2 = {
+      ecuacion: "Ecuación: $\\frac{dy}{dx} - 2y = \\cos(x)$",
+      pasos: [
+        "Identificamos $P(x) = -2$ y $Q(x) = \\cos(x)$.",
+        "Calculamos el factor integrante $\\mu(x) = e^{\\int P(x) dx} = e^{\\int -2 dx}$.",
+        "La integral de $-2$ es $-2x$, por lo tanto, el factor integrante es $\\mu(x) = e^{-2x}$.",
+        "Multiplicamos toda la ecuación diferencial por el factor integrante $e^{-2x}$: $e^{-2x} \\frac{dy}{dx} - 2e^{-2x} y = e^{-2x} \\cos(x)$.",
+        "El lado izquierdo es la derivada de $(ye^{-2x})$: $\\frac{d}{dx}(ye^{-2x}) = e^{-2x} \\frac{dy}{dx} - 2e^{-2x} y$.",
+        "Nuestra ecuación ahora es: $\\frac{d}{dx}(ye^{-2x}) = e^{-2x} \\cos(x)$.",
+        "Integramos ambos lados con respecto a $x$: $\\int \\frac{d}{dx}(ye^{-2x}) dx = \\int e^{-2x} \\cos(x) dx$, lo que nos da $ye^{-2x} = \\int e^{-2x} \\cos(x) dx + C$.",
+        "Para resolver la integral $\\int e^{-2x} \\cos(x) dx$, usamos la fórmula:",
+        "$\\int e^{ax} \\cos(bx) dx = \\frac{e^{ax}}{a^2 + b^2}(a \\cos(bx) + b \\sin(bx)) + C_1$",
+        "Con $a = -2$ y $b = 1$, obtenemos: $\\int e^{-2x} \\cos(x) dx = \\frac{e^{-2x}}{(-2)^2 + 1^2}(-2 \\cos(x) + 1 \\sin(x)) = \\frac{e^{-2x}}{5}(-2 \\cos(x) + \\sin(x))$.",
+        "Sustituimos el resultado de la integral en nuestra ecuación: $ye^{-2x} = \\frac{e^{-2x}}{5}(-2 \\cos(x) + \\sin(x)) + C$.",
+        "Finalmente, despejamos $y(x)$: $y(x) = \\frac{1}{5}(-2 \\cos(x) + \\sin(x)) + Ce^{2x}$."
+      ]
+    };
 
-      const secciones = [
-        'seccion-introduccion',
-        'seccion-pregunta1',
-        'seccion-metodo',
-        'seccion-pregunta2',
-        'generador-ed'
-      ];
-      let indiceSeccionActual = 0;
+    const secciones = [
+      'seccion-introduccion',
+      'seccion-pregunta1',
+      'seccion-metodo',
+      'seccion-pregunta2',
+      'seccion-ejemplo1',
+      'seccion-ejemplo2',
+      'generador-ed'
+    ];
+    let indiceSeccionActual = 0;
+    let indicePasoEjemplo1 = 0;
+    let indicePasoEjemplo2 = 0;
 
-      function mostrarSeccion(id) {
-        secciones.forEach(seccionId => {
-          document.getElementById(seccionId).style.display = (seccionId === id) ? 'block' : 'none';
-        });
-      }
-
-      // Mostrar la primera sección al cargar la página
-      mostrarSeccion(secciones[0]);
-
-      // Lógica para avanzar entre secciones con botones "Continuar"
-      document.getElementById('continuar-intro').addEventListener('click', () => {
-        indiceSeccionActual++;
-        mostrarSeccion(secciones[indiceSeccionActual]);
-      });
-
-      document.querySelectorAll('input[name="q1"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-          const feedbackDiv = document.getElementById('feedback1');
-          const respuestaTexto = q1Respuestas[radio.value];
-          feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
-          document.getElementById('continuar-q1').disabled = false;
-        });
-      });
-
-      document.getElementById('continuar-q1').addEventListener('click', () => {
-        indiceSeccionActual++;
-        mostrarSeccion(secciones[indiceSeccionActual]);
-      });
-
-      document.getElementById('continuar-metodo').addEventListener('click', () => {
-        indiceSeccionActual++;
-        mostrarSeccion(secciones[indiceSeccionActual]);
-      });
-
-      document.querySelectorAll('input[name="q2"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-          const feedbackDiv = document.getElementById('feedback2');
-          const respuestaTexto = q2Respuestas[radio.value];
-          feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
-          document.getElementById('continuar-q2').disabled = false;
-        });
-      });
-
-      document.getElementById('continuar-q2').addEventListener('click', () => {
-        indiceSeccionActual++;
-        mostrarSeccion(secciones[indiceSeccionActual]);
-      });
-
-      // Lógica del generador de ecuaciones (sin cambios por ahora)
-      const generarEcuacionBtn = document.getElementById('generarEcuacionBtn');
-      const ecuacionGeneradaDiv = document.getElementById('ecuacionGenerada');
-      const mostrarSolucionBtn = document.getElementById('mostrarSolucionBtn');
-      const solucionPasosDiv = document.getElementById('solucionPasos');
-      let parametrosGenerados;
-
-      generarEcuacionBtn.addEventListener('click', () => {
-        parametrosGenerados = generarParametros();
-        mostrarEcuacion(parametrosGenerados);
-        solucionPasosDiv.innerHTML = '';
-        mostrarSolucionBtn.disabled = false;
-      });
-
-      mostrarSolucionBtn.addEventListener('click', () => {
-        if (parametrosGenerados) {
-          resolverED(parametrosGenerados);
-        } else {
-          solucionPasosDiv.innerHTML = 'Por favor, genera una ecuación primero.';
+    function mostrarSeccion(id) {
+      secciones.forEach(seccionId => {
+        const element = document.getElementById(seccionId);
+        element.style.display = (seccionId === id) ? 'block' : 'none';
+        if (seccionId === id && element) {
+          element.dispatchEvent(new Event('show'));
         }
       });
+    }
 
-      function generarParametros() {
-        const q = Math.floor(Math.random() * 10 - 5);
-        const b = Math.floor(Math.random() * 21 - 10);
-        const c = Math.floor(Math.random() * 11 - 5);
-        return {
-          q: q === 0 ? (Math.random() < 0.5 ? 1 : -1) * Math.floor(Math.random() * 4 + 1) : q,
-          b: b,
-          c: c
-        };
-      }
-
-      function mostrarEcuacion(parametros) {
-        ecuacionGeneradaDiv.innerHTML = `Ecuación: $\\frac{dy}{dx} + ${parametros.q}y = ${parametros.b}$, con $y(0) = ${parametros.c}$`;
+    function mostrarPasoEjemplo(ejemplo, divId, indice, continuarBtnId) {
+      const divElement = document.getElementById(divId);
+      if (indice < ejemplo.pasos.length) {
+        divElement.innerHTML += `<p>${ejemplo.pasos[indice]}</p>`;
         MathJax.typesetPromise();
+        indice++;
       }
+      if (indice === ejemplo.pasos.length) {
+        document.getElementById(continuarBtnId).disabled = false;
+      }
+      return indice;
+    }
 
-      function resolverED(parametros) {
-        const q = parametros.q;
-        const b = parametros.b;
-        const c = parametros.c;
-        let pasosSolucion = [];
+    // Mostrar la primera sección al cargar la página
+    mostrarSeccion(secciones[0]);
 
-        pasosSolucion.push(`**Paso 1:** Identificamos $P(x) = ${q}$ y $Q(x) = ${b}$.`);
-        const factorIntegrante = `e^{${q}x}`;
-        pasosSolucion.push(`**Paso 2:** El factor integrante es $\\mu(x) = e^{\\int P(x) dx} = e^{\\int ${q} dx} = ${factorIntegrante}$.`);
-        pasosSolucion.push(`**Paso 3:** Multiplicamos la ED por $\\mu(x)$: $\\frac{d}{dx}(y ${factorIntegrante}) = ${b}${factorIntegrante}$.`);
-        pasosSolucion.push(`**Paso 4:** Integramos ambos lados: $y ${factorIntegrante} = \\int ${b}e^{${q}x} dx$.`);
+    // Lógica para avanzar entre secciones con botones "Continuar"
+    document.getElementById('continuar-intro').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
+    });
 
-        let integralResultado;
-        if (q === 0) {
-          integralResultado = `${b}x + C_1`;
-        } else {
-          integralResultado = `\\frac{${b}}{${q}}e^{${q}x} + C_1`;
-        }
-        pasosSolucion.push(`Esto da: $y ${factorIntegrante} = ${integralResultado}$.`);
+    document.querySelectorAll('input[name="q1"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const feedbackDiv = document.getElementById('feedback1');
+        const respuestaTexto = q1Respuestas[radio.value];
+        feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
+        document.getElementById('continuar-q1').disabled = false;
+      });
+    });
 
-        let yGeneral;
-        if (q === 0) {
-          yGeneral = `${b}x + C_1`;
-        } else {
-          yGeneral = `\\frac{${b}}{${q}} + C_1e^{-${q}x}`;
-        }
-        pasosSolucion.push(`**Paso 5:** Despejamos $y(x)$: $y(x) = ${yGeneral}$.`);
+    document.getElementById('continuar-q1').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
+    });
 
-        let constanteC;
-        if (q === 0) {
-          constanteC = `${c} = ${b}(0) + C_1 \\implies C_1 = ${c}`;
-        } else {
-          constanteC = `${c} = \\frac{${b}}{${q}} + C_1 \\implies C_1 = ${c} - \\frac{${b}}{${q}} = \\frac{${c}q - ${b}}{${q}}`;
-        }
-        pasosSolucion.push(`**Paso 6:** Usando $y(0) = ${c}$, encontramos $C_1 = ${constanteC.split('=')[1].trim()}.`);
+    document.getElementById('continuar-metodo').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
+    });
 
-        let solucionParticular;
-        if (q === 0) {
-          solucionParticular = `y(x) = ${b}x + ${c}`;
-        } else {
-          solucionParticular = `y(x) = \\frac{${b}}{${q}} + (\\frac{${c}q - ${b}}{${q}})e^{-${q}x}`;
-        }
-        pasosSolucion.push(`**Paso 7:** La solución particular es: $y(x) = ${solucionParticular}$.`);
+    document.querySelectorAll('input[name="q2"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const feedbackDiv = document.getElementById('feedback2');
+        const respuestaTexto = q2Respuestas[radio.value];
+        feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
+        document.getElementById('continuar-q2').disabled = false;
+      });
+    });
 
-        solucionPasosDiv.innerHTML = pasosSolucion.join('<br><br>');
-        MathJax.typesetPromise();
+    document.getElementById('continuar-q2').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
+    });
+
+    document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
+      indicePasoEjemplo1 = 0;
+      document.getElementById('pasos-ejemplo1').innerHTML = '';
+      document.getElementById('continuar-ejemplo1').disabled = true;
+      indicePasoEjemplo1 = mostrarPasoEjemplo(ejemplo1, 'pasos-ejemplo1', indicePasoEjemplo1, 'continuar-ejemplo1');
+    });
+
+    document.getElementById('continuar-ejemplo1').addEventListener('click', () => {
+      indicePasoEjemplo1 = mostrarPasoEjemplo(ejemplo1, 'pasos-ejemplo1', indicePasoEjemplo1, 'continuar-ejemplo1');
+      if (indicePasoEjemplo1 === ejemplo1.pasos.length) {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
       }
     });
-  </script>
 
-</body>
-</html>
+    document.getElementById('seccion-ejemplo2').addEventListener('show', () => {
+      indicePasoEjemplo2 = 0;
+      document.getElementById('pasos-ejemplo2').innerHTML = '';
+      document.getElementById('continuar-ejemplo2').disabled = true;
+      indicePasoEjemplo2 = mostrarPasoEjemplo(ejemplo2, 'pasos-ejemplo2', indicePasoEjemplo2, 'continuar-ejemplo2');
+    });
+
+    document.getElementById('continuar-ejemplo2').addEventListener('click', () => {
+      indicePasoEjemplo2 = mostrarPasoEjemplo(ejemplo2, 'pasos-ejemplo2', indicePasoEjemplo2, 'continuar-ejemplo2');
+      if (indicePasoEjemplo2 === ejemplo2.pasos.length) {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
+      }
+    });
+
+    // Lógica del generador de ecuaciones (sin cambios por ahora)
+    const generarEcuacionBtn = document.getElementById('generarEcuacionBtn');
+    const ecuacionGeneradaDiv = document.getElementById('ecuacionGenerada');
+    const mostrarSolucionBtn = document.getElementById('mostrarSolucionBtn');
+    const solucionPasosDiv = document.getElementById('solucionPasos');
+    let parametrosGenerados;
+
+    generarEcuacionBtn.addEventListener('click', () => {
+      parametrosGenerados = generarParametros();
+      mostrarEcuacion(parametrosGenerados);
+      solucionPasosDiv.innerHTML = '';
+      mostrarSolucionBtn.disabled = false;
+    });
+
+    mostrarSolucionBtn.addEventListener('click', () => {
+      if (parametrosGenerados) {
+        resolverED(parametrosGenerados);
+      } else {
+        solucionPasosDiv.innerHTML = 'Por favor, genera una ecuación primero.';
+      }
+    });
+
+    function generarParametros() {
+      const q = Math.floor(Math.random() * 10 - 5);
+      const b = Math.floor(Math.random() * 21 - 10);
+      const c = Math.floor(Math.random() * 11 - 5);
+      return {
+        q: q === 0 ? (Math.random() < 0.5 ? 1 : -1) * Math.floor(Math.random() * 4 + 1) : q,
+        b: b,
+        c: c
+      };
+    }
+
+    function mostrarEcuacion(parametros) {
+      ecuacionGeneradaDiv.innerHTML = `Ecuación: $\\frac{dy}{dx} + ${parametros.q}y = ${parametros.b}$, con $y(0) = ${parametros.c}$`;
+      MathJax.typesetPromise();
+    }
+
+    function resolverED(parametros) {
+      const q = parametros.q;
+      const b = parametros.b;
+      const c = parametros.c;
+      let pasosSolucion = [];
+
+      pasosSolucion.push(`Identificamos $P(x) = ${q}$ y $Q(x) = ${b}$.`);
+      const factorIntegrante = `e^{${q}x}`;
+      pasosSolucion.push(`El factor integrante es $\\mu(x) = e^{\\int P(x) dx} = e^{\\int ${q} dx} = ${factorIntegrante}$.`);
+      pasosSolucion.push(`Multiplicamos la ED por $\\mu(x)$: $\\frac{d}{dx}(y ${factorIntegrante}) = ${b}${factorIntegrante}$.`);
+      pasosSolucion.push(`Integramos ambos lados: $y ${factorIntegrante} = \\int ${b}e^{${q}x} dx$.`);
+
+      let integralResultado;
+      if (q === 0) {
+        integralResultado = `${b}x + C_1`;
+      } else {
+        integralResultado = `\\frac{${b}}{${q}}e^{${q}x} + C_1`;
+      }
+      pasosSolucion.push(`Esto da: $y ${factorIntegrante} = ${integralResultado}$.`);
+
+      let yGeneral;
+      if (q === 0) {
+        yGeneral = `${b}x + C_1`;
+      } else {
+        yGeneral = `\\frac{${b}}{${q}} + C_1e^{-${q}x}`;
+      }
+      pasosSolucion.push(`Despejamos $y(x)$: $y(x) = ${yGeneral}$.`);
+
+      let constanteC;
+      if (q === 0) {
+        constanteC = `${c} = ${b}(0) + C_1 \\implies C_1 = ${c}`;
+      } else {
+        constanteC = `${c} = \\frac{${b}}{${q}} + C_1 \\implies C_1 = ${c} - \\frac{${b}}{${q}} = \\frac{${c}q - ${b}}{${q}}`;
+      }
+      pasosSolucion.push(`Usando $y(0) = ${c}$, encontramos $C_1 = ${constanteC.split('=')[1].trim()}.`);
+
+      let solucionParticular;
+      if (q === 0) {
+        solucionParticular = `y(x) = ${b}x + ${c}`;
+      } else {
+        solucionParticular = `y(x) = \\frac{${b}}{${q}} + (\\frac{${c}q - ${b}}{${q}})e^{-${q}x}`;
+      }
+      pasosSolucion.push(`La solución particular es: $y(x) = ${solucionParticular}$.`);
+
+      solucionPasosDiv.innerHTML = pasosSolucion.join('<br><br>');
+      MathJax.typesetPromise();
+    }
+  });
