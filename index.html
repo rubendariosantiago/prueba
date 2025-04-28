@@ -282,12 +282,14 @@
     function mostrarSeccion(id) {
       secciones.forEach(seccionId => {
         const element = document.getElementById(seccionId);
-        element.style.display = (seccionId === id) ? 'block' : 'none';
+        element.style.display
+
+= (seccionId === id) ? 'block' : 'none';
         if (seccionId === id && element) {
           element.dispatchEvent(new Event('show'));
         }
       });
-      }
+    }
 
     function mostrarPaso(divId, pasos, indice, continuarBtnId) {
       const divElement = document.getElementById(divId);
@@ -457,91 +459,6 @@
 
     // --- Control de flujo principal ---
     mostrarSeccion(secciones[indiceSeccionActual]);
-
-    document.querySelectorAll('button[id^="continuar-teoria"]').forEach(button => {
-      button.addEventListener('click', () => {
-        indiceSeccionActual++;
-        mostrarSeccion(secciones[indiceSeccionActual]);
-      });
-    });
-
-    document.querySelectorAll('input[name^="q"]').forEach(radioGroup => {
-      const name = radioGroup.name;
-      const continuarBtnId = `continuar-${name}`;
-      const feedbackDivId = `feedback${name.slice(1)}`; // Elimina la 'q'
-
-      radioGroup.forEach(radio => {
-        radio.addEventListener('change', () => {
-          const respuestas = name === 'q1' ? q1Respuestas : (name === 'q2' ? q2Respuestas : (name === 'q3' ? q3Respuestas : qFinalRespuestas));
-          document.getElementById(feedbackDivId).innerHTML = `<p>${respuestas[radio.value]}</p>`;
-          MathJax.typesetPromise();
-          document.getElementById(continuarBtnId).disabled = false;
-        });
-      });
-
-      const continuarBtn = document.getElementById(continuarBtnId);
-      if (continuarBtn) {
-        continuarBtn.addEventListener('click', () => {
-          indiceSeccionActual++;
-          mostrarSeccion(secciones[indiceSeccionActual]);
-        });
-      }
-    });
-
-    document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
-      indicePasoEjemplo1 = 0;
-      document.getElementById('pasos-ejemplo1').innerHTML = '';
-      document.getElementById('continuar-ejemplo1').textContent = 'Mostrar Solución Paso a Paso';
-      document.getElementById('continuar-ejemplo1').disabled = false;
-    });
-
-    document.getElementById('continuar-ejemplo1').addEventListener('click', () => {
-      indicePasoEjemplo1 = mostrarPaso(
-        'pasos-ejemplo1',
-        ejemplo1.pasos,
-        indicePasoEjemplo1,
-        'continuar-ejemplo1'
-      );
-      document.getElementById('continuar-ejemplo1').textContent = indicePasoEjemplo1 < ejemplo1.pasos.length ? 'Siguiente Paso' : 'Continuar';
-      if (indicePasoEjemplo1 === ejemplo1.pasos.length) {
-        indiceSeccionActual++;
-        mostrarSeccion(secciones[indiceSeccionActual]);
-      }
-    });
-
-    document.getElementById('seccion-ejemplo2').addEventListener('show', () => {
-      indicePasoEjemplo2 = 0;
-      document.getElementById('pasos-ejemplo2').innerHTML = '';
-      document.getElementById('continuar-ejemplo2').textContent = 'Mostrar Solución Paso a Paso';
-      document.getElementById('continuar-ejemplo2').disabled = false;
-    });
-
-    document.getElementById('continuar-ejemplo2').addEventListener('click', () => {
-      indicePasoEjemplo2 = mostrarPaso(
-        'pasos-ejemplo2',
-        ejemplo2.pasos,
-        indicePasoEjemplo2,
-        'continuar-ejemplo2'
-      );
-      document.getElementById('continuar-ejemplo2').textContent = indicePasoEjemplo2 < ejemplo2.pasos.length ? 'Siguiente Paso' : 'Continuar';
-      if (indicePasoEjemplo2 === ejemplo2.pasos.length) {
-        indiceSeccionActual++;
-        mostrarSeccion(secciones[indiceSeccionActual]);
-      }
-    });
-
-    document.getElementById('seccion-ejemplos-interactivos').addEventListener('show', () => {
-      if (!ejemploInteractivoActual) {
-        ejemploInteractivoActual = generarEjemploInteractivo();
-      }
-      numEjemplosResueltos = 0;
-      document.getElementById('otro-ejemplo').style.display = 'inline-block';
-      document.getElementById('continuar-ejemplos').disabled = true;
-      const ejemploDiv = document.getElementById('ejemplo-interactivo');
-      ejemploDiv.innerHTML = `<h3>Resuelve la siguiente ecuación diferencial:</h3><p>${ejemploInteractivoActual.ecuacion}</p>`;
-      MathJax.typesetPromise();
-      document.getElementById('mostrar-solucion-interactivo').disabled = false;
-    });
   </script>
 </body>
 </html>
