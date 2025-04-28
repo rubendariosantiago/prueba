@@ -6,7 +6,7 @@
   <title>Ecuaciones Diferenciales Lineales de Primer Orden</title>
   <script>
     MathJax = {
-      tex: { inlineMath: [['<span class="math-inline">', '</span>'], ['\\(', '\\)']] }
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
     };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -117,10 +117,10 @@
 
   <div id="seccion-introduccion">
     <h3>Introducción</h3>
-    <p>Imagina que tienes una función <span class="math-inline">y \= y\(x\)</span> y conoces la relación que existe entre esta función y su primera derivada, <span class="math-inline">y' \= \\frac\{dy\}\{dx\}</span>. Una <strong>ecuación diferencial</strong> es precisamente una ecuación que involucra a una función y sus derivadas.</p>
+    <p>Imagina que tienes una función $y = y(x)$ y conoces la relación que existe entre esta función y su primera derivada, $y' = \frac{dy}{dx}$. Una <strong>ecuación diferencial</strong> es precisamente una ecuación que involucra a una función y sus derivadas.</p>
     <p>En particular, una <strong>ecuación diferencial lineal de primer orden</strong> tiene una forma muy específica que podemos escribir de la siguiente manera:</p>
-    <p><span class="math-inline">\\frac\{dy\}\{dx\} \+ P\(x\)y \= Q\(x\)</span></p>
-    <p>Donde <span class="math-inline">P\(x\)</span> y <span class="math-inline">Q\(x\)</span> son funciones que dependen únicamente de la variable independiente <span class="math-inline">x</span> (o pueden ser constantes). La clave aquí es que la función <span class="math-inline">y</span> y su primera derivada <span class="math-inline">y'</span> aparecen de forma lineal; es decir, elevadas a la potencia de uno y no multiplicándose entre sí.</p>
+    <p>$\frac{dy}{dx} + P(x)y = Q(x)$</p>
+    <p>Donde $P(x)$ y $Q(x)$ son funciones que dependen únicamente de la variable independiente $x$ (o pueden ser constantes). La clave aquí es que la función $y$ y su primera derivada $y'$ aparecen de forma lineal; es decir, elevadas a la potencia de uno y no multiplicándose entre sí.</p>
     <h4>¿Por qué son importantes estas ecuaciones?</h4>
     <p>Las ecuaciones diferenciales lineales de primer orden aparecen en muchísimos problemas de la vida real y en diversas áreas de la ciencia e ingeniería. Por ejemplo, modelan fenómenos como:</p>
     <ul>
@@ -132,14 +132,14 @@
     </ul>
     <h4>Un ejemplo sencillo:</h4>
     <p>Considera la ecuación diferencial:</p>
-    <p><span class="math-inline">\\frac\{dy\}\{dx\} \+ 2y \= e^\{\-x\}</span></p>
-    <p>Aquí, <span class="math-inline">P\(x\) \= 2</span> y <span class="math-inline">Q\(x\) \= e^\{\-x\}</span>. Nuestro objetivo al resolver una ecuación diferencial es encontrar la función <span class="math-inline">y\(x\)</span> que satisface esta igualdad.</p>
+    <p>$\frac{dy}{dx} + 2y = e^{-x}$</p>
+    <p>Aquí, $P(x) = 2$ y $Q(x) = e^{-x}$. Nuestro objetivo al resolver una ecuación diferencial es encontrar la función $y(x)$ que satisface esta igualdad.</p>
     <button id="continuar-intro">Continuar</button>
   </div>
 
   <div id="seccion-pregunta1" style="display: none;">
     <h3>Pregunta 1: Verdadero o Falso</h3>
-    <p>La ecuación diferencial <span class="math-inline">\\frac\{dy\}\{dx\} \+ y^2 \= x</span> es una ecuación diferencial lineal de primer orden.</p>
+    <p>La ecuación diferencial $\frac{dy}{dx} + y^2 = x$ es una ecuación diferencial lineal de primer orden.</p>
     <label><input type="radio" name="q1" value="false"> Falso</label>
     <label><input type="radio" name="q1" value="true"> Verdadero</label>
     <div id="feedback1" class="feedback"></div>
@@ -148,35 +148,35 @@
 
   <div id="seccion-metodo" style="display: none;">
     <h3>Método de Solución: Factor Integrante</h3>
-    <p>El método del factor integrante transforma la ecuación en una forma integrable. El factor integrante <span class="math-inline">\\mu\(x\)</span> se define como:</p>
-    <p><span class="math-inline">\\mu\(x\) \= e^\{\\int P\(x\) dx\}</span></p>
-    <p>Multiplicando la ecuación por <span class="math-inline">\\mu\(x\)</span>, el lado izquierdo se convierte en la derivada de <span class="math-inline">\(\\mu\(x\) y\(x\)\)</span>:</p>
-    <p><span class="math-inline">\\frac\{d\}\{dx\} \[\\mu\(x\) y\(x\)\] \= \\mu\(x\) Q\(x\)</span></p>
-    <p>Integrando ambos lados y despejando <span class="math-inline">y\(x\)</span>, obtenemos la solución general.</p>
+    <p>El método del factor integrante transforma la ecuación en una forma integrable. El factor integrante $\mu(x)$ se define como:</p>
+    <p>$\mu(x) = e^{\int P(x) dx}$</p>
+    <p>Multiplicando la ecuación por $\mu(x)$, el lado izquierdo se convierte en la derivada de $(\mu(x) y(x))$:</p>
+    <p>$\frac{d}{dx} [\mu(x) y(x)] = \mu(x) Q(x)$</p>
+    <p>Integrando ambos lados y despejando $y(x)$, obtenemos la solución general.</p>
     <button id="continuar-metodo">Continuar</button>
   </div>
 
   <div id="seccion-pregunta2" style="display: none;">
     <h3>Pregunta 2: Opción Múltiple</h3>
-    <p>¿Cuál es el primer paso para resolver la ecuación diferencial <span class="math-inline">\\frac\{dy\}\{dx\} \- 3y \= x</span> utilizando el método del factor integrante?</p>
+    <p>¿Cuál es el primer paso para resolver la ecuación diferencial $\frac{dy}{dx} - 3y = x$ utilizando el método del factor integrante?</p>
     <div class="options">
-      <label><input type="radio" name="q2" value="a"> a) Integrar ambos lados con respecto a <span class="math-inline">x</span>.</label>
-      <label><input type="radio" name="q2" value="b"> b) Encontrar el factor integrante <span class="math-inline">\\mu\(x\) \= e^\{\\int \-3 dx\}</span>.</label>
-      <label><input type="radio" name="q2" value="c"> c) Despejar <span class="math-inline">y\(x\)</span>.</label>
-      <label><input type="radio" name="q2" value="d"> d) Multiplicar toda la ecuación por <span class="math-inline">x</span>.</label>
+      <label><input type="radio" name="q2" value="a"> a) Integrar ambos lados con respecto a $x$.</label>
+      <label><input type="radio" name="q2" value="b"> b) Encontrar el factor integrante $\mu(x) = e^{\int -3 dx}$.</label>
+      <label><input type="radio" name="q2" value="c"> c) Despejar $y(x)$.</label>
+      <label><input type="radio" name="q2" value="d"> d) Multiplicar toda la ecuación por $x$.</label>
     </div>
     <div id="feedback2" class="feedback"></div>
     <button id="continuar-q2" disabled>Continuar</button>
   </div>
 
   <div id="seccion-ejemplo1" style="display: none;">
-    <h3>Ejemplo 1: <span class="math-inline">\\frac\{dy\}\{dx\} \+ \\frac\{1\}\{x\}y \= x^2</span>, con <span class="math-inline">y\(1\) \= 0</span></h3>
+    <h3>Ejemplo 1: $\frac{dy}{dx} + \frac{1}{x}y = x^2$, con $y(1) = 0$</h3>
     <div id="pasos-ejemplo1"></div>
     <button id="continuar-ejemplo1" disabled>Continuar</button>
   </div>
 
   <div id="seccion-ejemplo2" style="display: none;">
-    <h3>Ejemplo 2: <span class="math-inline">\\frac\{dy\}\{dx\} \- 2y \= \\cos\(x\)</span></h3>
+    <h3>Ejemplo 2: $\frac{dy}{dx} - 2y = \cos(x)$</h3>
     <div id="pasos-ejemplo2"></div>
     <button id="continuar-ejemplo2" disabled>Continuar</button>
   </div>
@@ -190,7 +190,7 @@
   </div>
 
   <script>
-const ejemplo1 = {
+    const ejemplo1 = {
       ecuacion: "Ecuación: $\\frac{dy}{dx} + \\frac{1}{x}y = x^2$, con $y(1) = 0$",
       pasos: [
         "Identificamos la forma general $\\frac{dy}{dx} + P(x)y = Q(x)$. En esta ecuación, $P(x) = \\frac{1}{x}$ y $Q(x) = x^2$.",
@@ -264,7 +264,8 @@ const ejemplo1 = {
       const divElement = document.getElementById(divId);
       if (indice < ejemplo.pasos.length) {
         divElement.innerHTML += `<p>${ejemplo.pasos[indice]}</p>`;
-        MathJax.typesetPromise(); // Asegurarse de renderizar MathJax aquí
+
+        MathJax.typesetPromise();
         indice++;
       }
       if (indice === ejemplo.pasos.length) {
@@ -291,7 +292,7 @@ const ejemplo1 = {
         const feedbackDiv = document.getElementById('feedback1');
         const respuestaTexto = q1Respuestas[radio.value];
         feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
-        MathJax.typesetPromise(); // Renderizar MathJax después de la retroalimentación
+        MathJax.typesetPromise();
         document.getElementById('continuar-q1').disabled = false;
       });
     });
@@ -301,7 +302,7 @@ const ejemplo1 = {
         const feedbackDiv = document.getElementById('feedback2');
         const respuestaTexto = q2Respuestas[radio.value];
         feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
-        MathJax.typesetPromise(); // Renderizar MathJax después de la retroalimentación
+        MathJax.typesetPromise();
         document.getElementById('continuar-q2').disabled = false;
       });
     });
@@ -347,17 +348,17 @@ const ejemplo1 = {
       parametrosGenerados = generarParametros();
       mostrarEcuacion(parametrosGenerados);
       solucionPasosDiv.innerHTML = '';
-      MathJax.typesetPromise(); // Renderizar MathJax al generar la ecuación
+      MathJax.typesetPromise();
       mostrarSolucionBtn.disabled = false;
     });
 
     mostrarSolucionBtn.addEventListener('click', () => {
       if (parametrosGenerados) {
         resolverED(parametrosGenerados);
-        MathJax.typesetPromise(); // Renderizar MathJax al mostrar la solución
+        MathJax.typesetPromise();
       } else {
         solucionPasosDiv.innerHTML = 'Por favor, genera una ecuación primero.';
-        MathJax.typesetPromise(); // Asegurarse de renderizar este mensaje también
+        MathJax.typesetPromise();
       }
     });
 
@@ -425,4 +426,8 @@ const ejemplo1 = {
       MathJax.typesetPromise();
     }
   });
+
+
   </script>
+</body>
+</html>
