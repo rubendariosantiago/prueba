@@ -265,9 +265,13 @@
     mostrarSeccion(secciones[0]);
 
     // Lógica para avanzar entre secciones con botones "Continuar"
-    document.getElementById('continuar-intro').addEventListener('click', () => {
-      indiceSeccionActual++;
-      mostrarSeccion(secciones[indiceSeccionActual]);
+    document.querySelectorAll('button[id^="continuar-"]').forEach(button => {
+      button.addEventListener('click', () => {
+        indiceSeccionActual++;
+        if (indiceSeccionActual < secciones.length) {
+          mostrarSeccion(secciones[indiceSeccionActual]);
+        }
+      });
     });
 
     document.querySelectorAll('input[name="q1"]').forEach(radio => {
@@ -279,16 +283,6 @@
       });
     });
 
-    document.getElementById('continuar-q1').addEventListener('click', () => {
-      indiceSeccionActual++;
-      mostrarSeccion(secciones[indiceSeccionActual]);
-    });
-
-    document.getElementById('continuar-metodo').addEventListener('click', () => {
-      indiceSeccionActual++;
-      mostrarSeccion(secciones[indiceSeccionActual]);
-    });
-
     document.querySelectorAll('input[name="q2"]').forEach(radio => {
       radio.addEventListener('change', () => {
         const feedbackDiv = document.getElementById('feedback2');
@@ -296,11 +290,6 @@
         feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
         document.getElementById('continuar-q2').disabled = false;
       });
-    });
-
-    document.getElementById('continuar-q2').addEventListener('click', () => {
-      indiceSeccionActual++;
-      mostrarSeccion(secciones[indiceSeccionActual]);
     });
 
     document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
@@ -419,3 +408,4 @@
       MathJax.typesetPromise();
     }
   });
+  </script>
