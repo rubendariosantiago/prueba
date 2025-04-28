@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecuaciones Diferenciales Lineales de Primer Orden</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <style>
+    /* Estilos CSS (sin cambios por ahora) */
+  </style>
+</head>
+<body>
+
+  <h2>Ecuaciones Diferenciales Lineales de Primer Orden</h2>
+
+  <div id="seccion-teoria1">
+    <h3>Introducción</h3>
+    <p>Contenido de la primera parte de la teoría...</p>
+    <button id="continuar-teoria1">Continuar</button>
+  </div>
+
+  <div id="seccion-pregunta1" style="display: none;">
+    <h3>Pregunta 1: Verdadero o Falso</h3>
+    <p>Afirmación de la primera pregunta...</p>
+    <label><input type="radio" name="q1" value="false"> Falso</label>
+    <label><input type="radio" name="q1" value="true"> Verdadero</label>
+    <div id="feedback1" class="feedback"></div>
+    <button id="continuar-q1" disabled>Continuar</button>
+  </div>
+
+  <div id="seccion-teoria2" style="display: none;">
+    <h3>Método de Solución: Factor Integrante</h3>
+    <p>Contenido de la segunda parte de la teoría...</p>
+    <button id="continuar-teoria2">Continuar</button>
+  </div>
+
+  <div id="seccion-pregunta2" style="display: none;">
+    <h3>Pregunta 2: Verdadero o Falso</h3>
+    <p>Afirmación de la segunda pregunta...</p>
+    <label><input type="radio" name="q2" value="false"> Falso</label>
+    <label><input type="radio" name="q2" value="true"> Verdadero</label>
+    <div id="feedback2" class="feedback"></div>
+    <button id="continuar-q2" disabled>Continuar</button>
+  </div>
+
+  <div id="seccion-ejemplo1" style="display: none;">
+    <h3>Ejemplo 1: ...</h3>
+    <div id="pasos-ejemplo1"></div>
+    <button id="continuar-ejemplo1" disabled>Mostrar Solución Paso a Paso</button>
+  </div>
+
+  <div id="seccion-ejemplo2" style="display: none;">
+    <h3>Ejemplo 2: ...</h3>
+    <div id="pasos-ejemplo2"></div>
+    <button id="continuar-ejemplo2" disabled>Mostrar Solución Paso a Paso</button>
+  </div>
+
+  <div id="seccion-pregunta3" style="display: none;">
+    <h3>Pregunta 3: Opción Múltiple</h3>
+    <p>Pregunta de opción múltiple sencilla...</p>
+    <div class="options">
+      <label><input type="radio" name="q3" value="a"> Opción A</label>
+      <label><input type="radio" name="q3" value="b"> Opción B</label>
+      <label><input type="radio" name="q3" value="c"> Opción C</label>
+      <label><input type="radio" name="q3" value="d"> Opción D</label>
+    </div>
+    <div id="feedback3" class="feedback"></div>
+    <button id="continuar-q3" disabled>Continuar</button>
+  </div>
+
+  <div id="seccion-ejemplos-interactivos" style="display: none;">
+    <h3>Ejemplos Interactivos</h3>
+    <div id="ejemplo-interactivo"></div>
+    <button id="mostrar-solucion-interactivo" disabled>Mostrar Solución Paso a Paso</button>
+    <button id="otro-ejemplo">Otro Ejemplo</button>
+    <button id="continuar-ejemplos">Continuar</button>
+  </div>
+
+  <div id="seccion-pregunta-final" style="display: none;">
+    <h3>Ejercicio Final: Opción Múltiple</h3>
+    <p>Ejercicio final de opción múltiple...</p>
+    <div class="options">
+      <label><input type="radio" name="qFinal" value="a"> Opción A</label>
+      <label><input type="radio" name="qFinal" value="b"> Opción B</label>
+      <label><input type="radio" name="qFinal" value="c"> Opción C</label>
+      <label><input type="radio" name="qFinal" value="d"> Opción D</label>
+    </div>
+    <div id="feedbackFinal" class="feedback"></div>
+    <button id="continuar-final" disabled>Continuar</button>
+  </div>
+
+  <div id="seccion-final" style="display: none;">
+    <h3>Final de la Actividad</h3>
+    <div id="resultado-final"></div>
+    <button id="reiniciar">Empezar de Nuevo</button>
+    <button id="imprimir">Imprimir en PDF</button>
+    <button id="terminar">Terminar</button>
+  </div>
+
+  <script>
+    // Aquí irá el código JavaScript completo y revisado
+    const ejemplo1 = {
+      ecuacion: "Ecuación del Ejemplo 1...",
+      pasos: ["Paso 1 del Ejemplo 1...", "Paso 2 del Ejemplo 1...", "..."]
+    };
+
+    const ejemplo2 = {
+      ecuacion: "Ecuación del Ejemplo 2...",
+      pasos: ["Paso 1 del Ejemplo 2...", "Paso 2 del Ejemplo 2...", "..."]
+    };
+
+    const q1Respuestas = {
+      false: "Retroalimentación para falso...",
+      true: "Retroalimentación para verdadero..."
+    };
+
+    const q2Respuestas = {
+      false: "Retroalimentación para falso...",
+      true: "Retroalimentación para verdadero..."
+    };
+
+    const q3Respuestas = {
+      a: "Retroalimentación para Opción A...",
+      b: "Retroalimentación para Opción B...",
+      c: "Retroalimentación para Opción C...",
+      d: "Retroalimentación para Opción D..."
+    };
+
+    const qFinalRespuestas = {
+      a: "Retroalimentación para Opción A...",
+      b: "Retroalimentación para Opción B...",
+      c: "Retroalimentación para Opción C...",
+      d: "Retroalimentación para Opción D..."
+    };
+
+    const secciones = [
+      'seccion-teoria1',
+      'seccion-pregunta1',
+      'seccion-teoria2',
+      'seccion-pregunta2',
+      'seccion-ejemplo1',
+      'seccion-ejemplo2',
+      'seccion-pregunta3',
+      'seccion-ejemplos-interactivos',
+      'seccion-pregunta-final',
+      'seccion-final'
+    ];
+    let indiceSeccionActual = 0;
+    let indicePasoEjemplo1 = 0;
+    let indicePasoEjemplo2 = 0;
+    let ejemploInteractivoActual;
+    let numEjemplosResueltos = 0;
+    const maxEjemplosInteractivos = 3; // Máximo de ejemplos interactivos
+
+    function mostrarSeccion(id) {
+      secciones.forEach(seccionId => {
+        const element = document.getElementById(seccionId);
+        element.style.display = (seccionId === id) ? 'block' : 'none';
+        if (seccionId === id && element) {
+          element.dispatchEvent(new Event('show'));
+        }
+      });
+    }
+
+    function mostrarPaso(divId, pasos, indice, continuarBtnId) {
+      const divElement = document.getElementById(divId);
+      if (indice < pasos.length) {
+        divElement.innerHTML += `<p>${pasos[indice]}</p>`;
+        MathJax.typesetPromise();
+        indice++;
+      }
+      if (indice === pasos.length) {
+        document.getElementById(continuarBtnId).disabled = false;
+      }
+      return indice;
+    }
+
+    // --- Lógica para los Ejemplos Interactivos ---
+    function generarParametroNoPermitido() {
+      const valoresProhibidos = [-1, 0, 1];
+      let valor;
+      do {
+        valor = Math.floor(Math.random() * 11 - 5); // Números entre -5 y 5
+      } while (valoresProhibidos.includes(valor));
+      return valor;
+    }
+
+    function generarEjemploInteractivo() {
+      const tipo = Math.floor(Math.random() * 3);
+      const a = generarParametroNoPermitido();
+      const b = generarParametroNoPermitido();
+      const c = generarParametroNoPermitido();
+      const d = generarParametroNoPermitido();
+      let ecuacionTexto;
+      let solucionPasosInteractiva = [];
+
+      switch (tipo) {
+        case 0:
+          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = ${b}x + <span class="math-inline">\{c\}</span>, con $y(0) = <span class="math-inline">\{d\}</span>`;
+          // Lógica de solución para este tipo
+          solucionPasosInteractiva = [
+            `Ecuación: $\\frac{dy}{dx} + ${a}y = ${b}x + <span class="math-inline">\{c\}</span>`,
+            `Factor Integrante: $\\mu(x) = e^{\\int <span class="math-inline">\{a\} dx\} \= e^\{</span>{a}x}$`,
+            // ... más pasos de la solución
+          ];
+          break;
+        case 1:
+          const cs = generarParametroNoPermitido();
+          if (cs === -a) cs++; // Asegurar c != -a
+          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = <span class="math-inline">\{b\}e^\{</span>{cs}x}$, con $y(0) = <span class="math-inline">\{d\}</span>`;
+          // Lógica de solución para este tipo
+          solucionPasosInteractiva = [
+            `Ecuación: $\\frac{dy}{dx} + ${a}y = <span class="math-inline">\{b\}e^\{</span>{cs}x}$`,
+            `Factor Integrante: <span class="math-inline">\\\\mu\(x\) \= e^\{</span>{a}x}$`,
+            // ... más pasos de la solución
+          ];
+          break;
+        case 2:
+          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = ${b}x^2 + <span class="math-inline">\{c\}</span>, con $y(0) = <span class="math-inline">\{d\}</span>`;
+          // Lógica de solución para este tipo
+          solucionPasosInteractiva = [
+            `Ecuación: $\\frac{dy}{dx} + ${a}y = ${b}x^2 + <span class="math-inline">\{c\}</span>`,
+            `Factor Integrante: <span class="math-inline">\\\\mu\(x\) \= e^\{</span>{a}x}$`,
+            // ... más pasos de la solución
+          ];
+          break;
+      }
+
+      document.getElementById('ejemplo-interactivo').innerHTML = `<h3>Resuelve la siguiente ecuación diferencial:</h3><p>${ecuacionTexto}</p>`;
+      MathJax.typesetPromise();
+      document.getElementById('mostrar-solucion-interactivo').disabled = false;
+      return { ecuacion: ecuacionTexto, pasos: solucionPasosInteractiva, tipo: tipo, a: a, b: b, c: c, d: d };
+    }
+
+    document.getElementById('mostrar-solucion-interactivo').addEventListener('click', () => {
+      const pasosDiv = document.getElementById('ejemplo-interactivo');
+      ejemploInteractivoActual.pasos.forEach(paso => {
+        pasosDiv.innerHTML += `<p>${paso}</p>`;
+        MathJax.typesetPromise();
+      });
+      document.getElementById('mostrar-solucion-interactivo').disabled = true;
+      numEjemplosResueltos++;
+      if (numEjemplosResueltos >= maxEjemplosInteractivos) {
+        document.getElementById('otro-ejemplo').style.display = 'none';
+      }
+    });
+
+    document.getElementById('otro-ejemplo').addEventListener('click', () => {
+      ejemploInteractivoActual = generarEjemploInteractivo();
+    });
+
+    document.getElementById('continuar-ejemplos').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
+    });
+
+    // --- Lógica para la Pregunta Final ---
+    document.querySelectorAll('input[name="qFinal"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const feedbackDiv = document.getElementById('feedbackFinal');
+        const respuestaTexto = qFinalRespuestas[radio.value];
+        feedbackDiv.innerHTML = `<p>${respuestaTexto}</p>`;
+        MathJax.typesetPromise();
+        document.getElementById('continuar-final').disabled = false;
+      });
+    });
+
+    document.getElementById('continuar-final').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
+      // Aquí podrías registrar la respuesta del alumno
+    });
+
+    // --- Lógica para la Sección Final ---
+    document.getElementById('reiniciar').addEventListener('click', () => {
+      indiceSeccionActual = 0;
+      numEjemplosResueltos = 0;
+      document.getElementById('otro-ejemplo').style.display = 'inline-block';
+      mostrarSeccion(secciones[indiceSeccionActual]);
+      // Resetear cualquier estado de las preguntas
+    });
+
+    document.getElementById('imprimir').addEventListener('click', () => {
+      window.print();
+    });
+
+    document.getElementById('terminar').addEventListener('click', () => {
+      document.getElementById('resultado-final').innerHTML = '<p>¡Gracias por participar!</p>';
+      // Ocultar los botones de la sección final
+      document.querySelectorAll('#seccion-final button').forEach(btn => btn.style.display = 'none');
+    });
+
+    // --- Control de flujo principal ---
+    mostrarSeccion(secciones[indiceSeccionActual]);
+
+    document.querySelectorAll('button[id^="continuar-teoria"]').forEach(button => {
+      button.addEventListener('click', () => {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
+      });
+    });
+
+    document.querySelectorAll('input[name^="q"]').forEach(radioGroup => {
+      const name = radioGroup.name;
+      const continuarBtnId = `continuar-${name}`;
+      const feedbackDivId = `feedback${name.slice(1)}`; // Elimina la 'q'
+
+      radioGroup.forEach(radio => {
+        radio.addEventListener('change', () => {
+          const respuestas = name === 'q1' ? q1Respuestas : (name === 'q2' ? q2Respuestas : (name === 'q3' ? q3Respuestas : qFinalRespuestas));
+          document.getElementById(feedbackDivId).innerHTML = `<p>${respuestas[radio.value]}</p>`;
+          MathJax.typesetPromise();
+          document.getElementById(continuarBtnId).disabled = false;
+        });
+      });
+
+      const continuarBtn = document.getElementById(continuarBtnId);
+      if (continuarBtn) {
+        continuarBtn.addEventListener('click', () => {
+          indiceSeccionActual++;
+          mostrarSeccion(secciones[indiceSeccionActual]);
+        });
+      }
+    });
+
+    document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
+      indicePasoEjemplo1 = 0;
+      document.getElementById('pasos-ejemplo1').innerHTML = '';
+      document.getElementById('continuar-ejemplo1').disabled = false; // El botón ahora dice "Mostrar Solución"
+    });
+
+    document.getElementById('continuar-ejemplo1').addEventListener('click', () => {
+      indicePasoEjemplo1 = mostrarPaso(
+        'pasos-ejemplo1',
+        ejemplo1.pasos,
+        indicePasoEjemplo1,
+        'continuar-ejemplo1'
+      );
+      document.getElementById('continuar-ejemplo1').textContent = indicePasoEjemplo1 < ejemplo1.pasos.length ? 'Siguiente Paso' : 'Continuar';
+      if (indicePasoEjemplo1 === ejemplo1.pasos.length) {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
+      }
+    });
+
+    document.getElementById('seccion-ejemplo2').addEventListener('show', () => {
+indicePasoEjemplo2 = 0;
+      document.getElementById('pasos-ejemplo2').innerHTML = '';
+      document.getElementById('continuar-ejemplo2').disabled = false; // El botón ahora dice "Mostrar Solución"
+    });
+
+    document.getElementById('continuar-ejemplo2').addEventListener('click', () => {
+      indicePasoEjemplo2 = mostrarPaso(
+        'pasos-ejemplo2',
+        ejemplo2.pasos,
+        indicePasoEjemplo2,
+        'continuar-ejemplo2'
+      );
+      document.getElementById('continuar-ejemplo2').textContent = indicePasoEjemplo2 < ejemplo2.pasos.length ? 'Siguiente Paso' : 'Continuar';
+      if (indicePasoEjemplo2 === ejemplo2.pasos.length) {
+        indiceSeccionActual++;
+        mostrarSeccion(secciones[indiceSeccionActual]);
+      }
+    });
+
+    document.getElementById('seccion-ejemplos-interactivos').addEventListener('show', () => {
+      if (!ejemploInteractivoActual) {
+        ejemploInteractivoActual = generarEjemploInteractivo();
+      }
+      numEjemplosResueltos = 0;
+      document.getElementById('otro-ejemplo').style.display = 'inline-block';
+      const pasosDiv = document.getElementById('ejemplo-interactivo');
+      pasosDiv.innerHTML = `<h3>Resuelve la siguiente ecuación diferencial:</h3><p>${ejemploInteractivoActual.ecuacion}</p>`;
+      MathJax.typesetPromise();
+      document.getElementById('mostrar-solucion-interactivo').disabled = false;
+    });
+  </script>
+      
+</body>
+</html>
