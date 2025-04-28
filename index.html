@@ -264,7 +264,6 @@
       const divElement = document.getElementById(divId);
       if (indice < ejemplo.pasos.length) {
         divElement.innerHTML += `<p>${ejemplo.pasos[indice]}</p>`;
-
         MathJax.typesetPromise();
         indice++;
       }
@@ -278,13 +277,9 @@
     mostrarSeccion(secciones[0]);
 
     // Lógica para avanzar entre secciones con botones "Continuar"
-    document.querySelectorAll('button[id^="continuar-"]').forEach(button => {
-      button.addEventListener('click', () => {
-        indiceSeccionActual++;
-        if (indiceSeccionActual < secciones.length) {
-          mostrarSeccion(secciones[indiceSeccionActual]);
-        }
-      });
+    document.getElementById('continuar-intro').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
     });
 
     document.querySelectorAll('input[name="q1"]').forEach(radio => {
@@ -297,6 +292,16 @@
       });
     });
 
+    document.getElementById('continuar-q1').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
+    });
+
+    document.getElementById('continuar-metodo').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
+    });
+
     document.querySelectorAll('input[name="q2"]').forEach(radio => {
       radio.addEventListener('change', () => {
         const feedbackDiv = document.getElementById('feedback2');
@@ -305,6 +310,11 @@
         MathJax.typesetPromise();
         document.getElementById('continuar-q2').disabled = false;
       });
+    });
+
+    document.getElementById('continuar-q2').addEventListener('click', () => {
+      indiceSeccionActual++;
+      mostrarSeccion(secciones[indiceSeccionActual]);
     });
 
     document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
@@ -425,9 +435,6 @@
       solucionPasosDiv.innerHTML = pasosSolucion.join('<br><br>');
       MathJax.typesetPromise();
     }
-  });
-
-
   </script>
 </body>
 </html>
