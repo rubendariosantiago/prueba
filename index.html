@@ -3,15 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ecuaciones Diferenciales Lineales de Primer Orden AAAA</title>
+  <title>Ecuaciones Diferenciales Lineales de Primer Orden</title>
   <script>
     MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+      tex: { inlineMath: [['<span class="math-inline">', '</span>'], ['\\(', '\\)']] }
     };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
-    /* Estilos CSS (sin cambios por ahora) */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      margin: 30px;
+      background-color: #f4f7f6;
+      color: #333;
+    }
+    h2, h3, h4 {
+      color: #2c3e50;
+    }
+    h3 {
+      border-bottom: 2px solid #bdc3c7;
+      padding-bottom: 5px;
+      margin-top: 25px;
+    }
+    .explanation {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .options label {
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .options input[type="radio"] {
+      margin-right: 8px;
+    }
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #27ae60;
+    }
+    .feedback.incorrect {
+      color: #c0392b;
+    }
+    #generador-ed {
+      margin-top: 40px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    #solucionPasos {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+    #pasos-ejemplo1, #pasos-ejemplo2, #ejemplo-interactivo {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 8px;
+    }
+    #pasos-ejemplo1 p, #pasos-ejemplo2 p, #ejemplo-interactivo p, #ejemplo-interactivo h3 {
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 12px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #3498db;
+      color: #fff;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+      margin-top: 15px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    button:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+    #ecuacionGenerada {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #e6f7ff;
+      border-radius: 4px;
+      border: 1px solid #ccebff;
+    }
   </style>
 </head>
 <body>
@@ -20,13 +117,16 @@
 
   <div id="seccion-teoria1">
     <h3>Introducción</h3>
-    <p>Contenido de la primera parte de la teoría...</p>
+    <p>Imagina que tienes una función <span class="math-inline">y \= y\(x\)</span> y conoces la relación que existe entre esta función y su primera derivada, <span class="math-inline">y' \= \\frac\{dy\}\{dx\}</span>. Una <strong>ecuación diferencial</strong> es precisamente una ecuación que involucra a una función y sus derivadas.</p>
+    <p>En particular, una <strong>ecuación diferencial lineal de primer orden</strong> tiene una forma muy específica que podemos escribir de la siguiente manera:</p>
+    <p><span class="math-inline">\\frac\{dy\}\{dx\} \+ P\(x\)y \= Q\(x\)</span></p>
+    <p>Donde <span class="math-inline">P\(x\)</span> y <span class="math-inline">Q\(x\)</span> son funciones que dependen únicamente de la variable independiente <span class="math-inline">x</span> (o pueden ser constantes). La clave aquí es que la función <span class="math-inline">y</span> y su primera derivada <span class="math-inline">y'</span> aparecen de forma lineal; es decir, elevadas a la potencia de uno y no multiplicándose entre sí.</p>
     <button id="continuar-teoria1">Continuar</button>
   </div>
 
   <div id="seccion-pregunta1" style="display: none;">
     <h3>Pregunta 1: Verdadero o Falso</h3>
-    <p>Afirmación de la primera pregunta...</p>
+    <p>La ecuación diferencial <span class="math-inline">\\frac\{dy\}\{dx\} \+ y^2 \= x</span> es una ecuación diferencial lineal de primer orden.</p>
     <label><input type="radio" name="q1" value="false"> Falso</label>
     <label><input type="radio" name="q1" value="true"> Verdadero</label>
     <div id="feedback1" class="feedback"></div>
@@ -35,13 +135,17 @@
 
   <div id="seccion-teoria2" style="display: none;">
     <h3>Método de Solución: Factor Integrante</h3>
-    <p>Contenido de la segunda parte de la teoría...</p>
+    <p>El método del factor integrante transforma la ecuación en una forma integrable. El factor integrante <span class="math-inline">\\mu\(x\)</span> se define como:</p>
+    <p><span class="math-inline">\\mu\(x\) \= e^\{\\int P\(x\) dx\}</span></p>
+    <p>Multiplicando la ecuación por <span class="math-inline">\\mu\(x\)</span>, el lado izquierdo se convierte en la derivada de <span class="math-inline">\(\\mu\(x\) y\(x\)\)</span>:</p>
+    <p><span class="math-inline">\\frac\{d\}\{dx\} \[\\mu\(x\) y\(x\)\] \= \\mu\(x\) Q\(x\)</span></p>
+    <p>Integrando ambos lados y despejando <span class="math-inline">y\(x\)</span>, obtenemos la solución general.</p>
     <button id="continuar-teoria2">Continuar</button>
   </div>
 
   <div id="seccion-pregunta2" style="display: none;">
     <h3>Pregunta 2: Verdadero o Falso</h3>
-    <p>Afirmación de la segunda pregunta...</p>
+    <p>La ecuación diferencial <span class="math-inline">\\frac\{dy\}\{dx\} \- 2y \= x</span> se puede resolver directamente integrando ambos lados con respecto a <span class="math-inline">x</span>.</p>
     <label><input type="radio" name="q2" value="false"> Falso</label>
     <label><input type="radio" name="q2" value="true"> Verdadero</label>
     <div id="feedback2" class="feedback"></div>
@@ -49,25 +153,25 @@
   </div>
 
   <div id="seccion-ejemplo1" style="display: none;">
-    <h3>Ejemplo 1: ...</h3>
+    <h3>Ejemplo 1: <span class="math-inline">\\frac\{dy\}\{dx\} \+ 2y \= e^\{\-x\}</span>, con <span class="math-inline">y\(0\) \= 1</span></h3>
     <div id="pasos-ejemplo1"></div>
     <button id="continuar-ejemplo1" disabled>Mostrar Solución Paso a Paso</button>
   </div>
 
   <div id="seccion-ejemplo2" style="display: none;">
-    <h3>Ejemplo 2: ...</h3>
+    <h3>Ejemplo 2: <span class="math-inline">\\frac\{dy\}\{dx\} \- y \= x^2</span>, con <span class="math-inline">y\(0\) \= 0</span></h3>
     <div id="pasos-ejemplo2"></div>
     <button id="continuar-ejemplo2" disabled>Mostrar Solución Paso a Paso</button>
   </div>
 
   <div id="seccion-pregunta3" style="display: none;">
     <h3>Pregunta 3: Opción Múltiple</h3>
-    <p>Pregunta de opción múltiple sencilla...</p>
+    <p>¿Cuál es el factor integrante para la ecuación diferencial <span class="math-inline">\\frac\{dy\}\{dx\} \+ 3y \= \\sin\(x\)</span>?</p>
     <div class="options">
-      <label><input type="radio" name="q3" value="a"> Opción A</label>
-      <label><input type="radio" name="q3" value="b"> Opción B</label>
-      <label><input type="radio" name="q3" value="c"> Opción C</label>
-      <label><input type="radio" name="q3" value="d"> Opción D</label>
+      <label><input type="radio" name="q3" value="a"> a) <span class="math-inline">e^\{\\sin\(x\)\}</span></label>
+      <label><input type="radio" name="q3" value="b"> b) <span class="math-inline">3x</span></label>
+      <label><input type="radio" name="q3" value="c"> c) <span class="math-inline">e^\{3x\}</span></label>
+      <label><input type="radio" name="q3" value="d"> d) <span class="math-inline">\\cos\(x\)</span></label>
     </div>
     <div id="feedback3" class="feedback"></div>
     <button id="continuar-q3" disabled>Continuar</button>
@@ -78,17 +182,17 @@
     <div id="ejemplo-interactivo"></div>
     <button id="mostrar-solucion-interactivo" disabled>Mostrar Solución Paso a Paso</button>
     <button id="otro-ejemplo">Otro Ejemplo</button>
-    <button id="continuar-ejemplos">Continuar</button>
+    <button id="continuar-ejemplos" disabled>Continuar</button>
   </div>
 
   <div id="seccion-pregunta-final" style="display: none;">
     <h3>Ejercicio Final: Opción Múltiple</h3>
-    <p>Ejercicio final de opción múltiple...</p>
+    <p>La solución general de la ecuación diferencial <span class="math-inline">\\frac\{dy\}\{dx\} \+ y \= 0</span> es de la forma:</p>
     <div class="options">
-      <label><input type="radio" name="qFinal" value="a"> Opción A</label>
-      <label><input type="radio" name="qFinal" value="b"> Opción B</label>
-      <label><input type="radio" name="qFinal" value="c"> Opción C</label>
-      <label><input type="radio" name="qFinal" value="d"> Opción D</label>
+      <label><input type="radio" name="qFinal" value="a"> a) <span class="math-inline">y \= C</span></label>
+      <label><input type="radio" name="qFinal" value="b"> b) <span class="math-inline">y \= Cx</span></label>
+      <label><input type="radio" name="qFinal" value="c"> c) <span class="math-inline">y \= Ce^\{\-x\}</span></label>
+      <label><input type="radio" name="qFinal" value="d"> d) <span class="math-inline">y \= e^\{\-x\} \+ C</span></label>
     </div>
     <div id="feedbackFinal" class="feedback"></div>
     <button id="continuar-final" disabled>Continuar</button>
@@ -103,39 +207,57 @@
   </div>
 
   <script>
-    // Aquí irá el código JavaScript completo y revisado
     const ejemplo1 = {
-      ecuacion: "Ecuación del Ejemplo 1...",
-      pasos: ["Paso 1 del Ejemplo 1...", "Paso 2 del Ejemplo 1...", "..."]
+      ecuacion: "Ecuación: <span class="math-inline">\\\\frac\{dy\}\{dx\} \+ 2y \= e^\{\-x\}</span>, con <span class="math-inline">y\(0\) \= 1</span>",
+      pasos: [
+        "Identificamos <span class="math-inline">P\(x\) \= 2</span> y <span class="math-inline">Q\(x\) \= e^\{\-x\}</span>.",
+        "Calculamos el factor integrante <span class="math-inline">\\\\mu\(x\) \= e^\{\\\\int 2 dx\} \= e^\{2x\}</span>.",
+        "Multiplicamos la ED por <span class="math-inline">\\\\mu\(x\)</span>: <span class="math-inline">e^\{2x\} \\\\frac\{dy\}\{dx\} \+ 2e^\{2x\} y \= e^\{x\}</span>.",
+        "El lado izquierdo es la derivada de <span class="math-inline">\(ye^\{2x\}\)</span>: <span class="math-inline">\\\\frac\{d\}\{dx\}\(ye^\{2x\}\) \= e^\{x\}</span>.",
+        "Integramos ambos lados: <span class="math-inline">ye^\{2x\} \= \\\\int e^\{x\} dx \= e^\{x\} \+ C</span>.",
+        "Despejamos <span class="math-inline">y\(x\)</span>: <span class="math-inline">y\(x\) \= e^\{\-x\} \+ Ce^\{\-2x\}</span>.",
+        "Aplicamos la condición inicial <span class="math-inline">y\(0\) \= 1</span>: <span class="math-inline">1 \= e^\{0\} \+ Ce^\{0\} \\implies 1 \= 1 \+ C \\implies C \= 0</span>.",
+        "La solución particular es: <span class="math-inline">y\(x\) \= e^\{\-x\}</span>."
+      ]
     };
 
     const ejemplo2 = {
-      ecuacion: "Ecuación del Ejemplo 2...",
-      pasos: ["Paso 1 del Ejemplo 2...", "Paso 2 del Ejemplo 2...", "..."]
+      ecuacion: "Ecuación: <span class="math-inline">\\\\frac\{dy\}\{dx\} \- y \= x^2</span>, con <span class="math-inline">y\(0\) \= 0</span>",
+      pasos: [
+        "Identificamos <span class="math-inline">P\(x\) \= \-1</span> y <span class="math-inline">Q\(x\) \= x^2</span>.",
+        "Calculamos el factor integrante <span class="math-inline">\\\\mu\(x\) \= e^\{\\\\int \-1 dx\} \= e^\{\-x\}</span>.",
+        "Multiplicamos la ED por <span class="math-inline">\\\\mu\(x\)</span>: <span class="math-inline">e^\{\-x\} \\\\frac\{dy\}\{dx\} \- e^\{\-x\} y \= x^2 e^\{\-x\}</span>.",
+        "El lado izquierdo es la derivada de <span class="math-inline">\(ye^\{\-x\}\)</span>: <span class="math-inline">\\\\frac\{d\}\{dx\}\(ye^\{\-x\}\) \= x^2 e^\{\-x\}</span>.",
+        "Integramos ambos lados: <span class="math-inline">ye^\{\-x\} \= \\\\int x^2 e^\{\-x\} dx</span>. (Integral por partes)",
+        "<span class="math-inline">\\\\int x^2 e^\{\-x\} dx \= \-x^2 e^\{\-x\} \- 2x e^\{\-x\} \- 2e^\{\-x\} \+ C\_1</span>.",
+        "Despejamos <span class="math-inline">y\(x\)</span>: <span class="math-inline">y\(x\) \= \-x^2 \- 2x \- 2 \+ Ce^\{x\}</span>.",
+        "Aplicamos la condición inicial <span class="math-inline">y\(0\) \= 0</span>: <span class="math-inline">0 \= \-0 \- 0 \- 2 \+ Ce^\{0\} \\implies C \= 2</span>.",
+        "La solución particular es: <span class="math-inline">y\(x\) \= \-x^2 \- 2x \- 2 \+ 2e^\{x\}</span>."
+      ]
     };
 
     const q1Respuestas = {
-      false: "Retroalimentación para falso...",
-      true: "Retroalimentación para verdadero..."
+      false: "¡Correcto! La presencia de <span class="math-inline">y^2</span> hace que la ecuación no sea lineal.",
+      true: "Incorrecto. Para ser lineal, <span class="math-inline">y</span> y sus derivadas deben tener potencia 1 y no multiplicarse entre sí."
     };
 
     const q2Respuestas = {
-      false: "Retroalimentación para falso...",
-      true: "Retroalimentación para verdadero..."
+      false: "¡Correcto! La presencia del término <span class="math-inline">y</span> hace que no se pueda integrar directamente.",
+      true: "Incorrecto. Si solo tuviéramos <span class="math-inline">\\\\frac\{dy\}\{dx\} \= f\(x\)</span>, podríamos integrar directamente."
     };
 
     const q3Respuestas = {
-      a: "Retroalimentación para Opción A...",
-      b: "Retroalimentación para Opción B...",
-      c: "Retroalimentación para Opción C...",
-      d: "Retroalimentación para Opción D..."
+      a: "Incorrecto. El factor integrante depende de <span class="math-inline">P\(x\)</span>, no de <span class="math-inline">Q\(x\)</span>.",
+      b: "Incorrecto. El factor integrante es una exponencial.",
+      c: "¡Correcto! El factor integrante es <span class="math-inline">e^\{\\\\int 3 dx\} \= e^\{3x\}</span>.",
+      d: "Incorrecto. <span class="math-inline">\\cos\(x\)</span> no es el factor integrante."
     };
 
     const qFinalRespuestas = {
-      a: "Retroalimentación para Opción A...",
-      b: "Retroalimentación para Opción B...",
-      c: "Retroalimentación para Opción C...",
-      d: "Retroalimentación para Opción D..."
+      a: "Incorrecto. Esta sería la solución si la derivada fuera cero.",
+      b: "Incorrecto. Prueba derivando esta solución.",
+      c: "¡Correcto! Derivando <span class="math-inline">y \= Ce^\{\-x\}</span> obtenemos <span class="math-inline">\\\\frac\{dy\}\{dx\} \= \-Ce^\{\-x\} \= \-y</span>.",
+      d: "Incorrecto. La constante debe multiplicarse por la función exponencial."
     };
 
     const secciones = [
@@ -165,7 +287,7 @@
           element.dispatchEvent(new Event('show'));
         }
       });
-    }
+      }
 
     function mostrarPaso(divId, pasos, indice, continuarBtnId) {
       const divElement = document.getElementById(divId);
@@ -201,32 +323,48 @@
 
       switch (tipo) {
         case 0:
-          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = ${b}x + <span class="math-inline">\{c\}</span>, con $y(0) = <span class="math-inline">\{d\}</span>`;
-          // Lógica de solución para este tipo
+          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = ${b}x + ${c}$, con $y(0) = ${d}$`;
           solucionPasosInteractiva = [
-            `Ecuación: $\\frac{dy}{dx} + ${a}y = ${b}x + <span class="math-inline">\{c\}</span>`,
-            `Factor Integrante: $\\mu(x) = e^{\\int <span class="math-inline">\{a\} dx\} \= e^\{</span>{a}x}$`,
-            // ... más pasos de la solución
+            `Ecuación: $\\frac{dy}{dx} + ${a}y = ${b}x + ${c}$`,
+            `Factor Integrante: $\\mu(x) = e^{\\int ${a} dx} = e^{${a}x}$`,
+            `Multiplicando por $\\mu(x)$: $e^{${a}x} \\frac{dy}{dx} + ${a}e^{${a}x} y = (${b}x + ${c})e^{${a}x}$`,
+            `$\\frac{d}{dx}(ye^{${a}x}) = (${b}x + ${c})e^{${a}x}$`,
+            `Integrando: $ye^{${a}x} = \\int (${b}x + ${c})e^{${a}x} dx$`,
+            // (La integral de la derecha requeriría integración por partes)
+            `Solución general: $y(x) = e^{-${a}x} \\left( \\int (${b}x + ${c})e^{${a}x} dx + C \\right)$`,
+            `Aplicando $y(0) = ${d}$: ${d} = 1 \cdot (0 + C) \implies C = ${d}`,
+            // (La solución particular dependerá del resultado de la integral)
+            `Solución particular: $y(x) = e^{-${a}x} \\left( \\int (${b}x + ${c})e^{${a}x} dx + ${d} \\right)$`
           ];
           break;
         case 1:
           const cs = generarParametroNoPermitido();
           if (cs === -a) cs++; // Asegurar c != -a
-          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = <span class="math-inline">\{b\}e^\{</span>{cs}x}$, con $y(0) = <span class="math-inline">\{d\}</span>`;
-          // Lógica de solución para este tipo
+          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = ${b}e^{${cs}x}$, con $y(0) = ${d}$`;
           solucionPasosInteractiva = [
-            `Ecuación: $\\frac{dy}{dx} + ${a}y = <span class="math-inline">\{b\}e^\{</span>{cs}x}$`,
-            `Factor Integrante: <span class="math-inline">\\\\mu\(x\) \= e^\{</span>{a}x}$`,
-            // ... más pasos de la solución
+            `Ecuación: $\\frac{dy}{dx} + ${a}y = ${b}e^{${cs}x}$`,
+            `Factor Integrante: $\\mu(x) = e^{${a}x}$`,
+            `Multiplicando por $\\mu(x)$: $e^{${a}x} \\frac{dy}{dx} + ${a}e^{${a}x} y = ${b}e^{(${a} + ${cs})x}$`,
+            `$\\frac{d}{dx}(ye^{${a}x}) = ${b}e^{(${a} + ${cs})x}$`,
+            `Integrando: $ye^{${a}x} = \\int ${b}e^{(${a} + ${cs})x} dx = \\frac{${b}}{${a} + ${cs}}e^{(${a} + ${cs})x} + C$`,
+            `Solución general: $y(x) = \\frac{${b}}{${a} + ${cs}}e^{${cs}x} + Ce^{-${a}x}$`,
+            `Aplicando $y(0) = ${d}$: ${d} = \\frac{${b}}{${a} + ${cs}} + C \implies C = ${d} - \\frac{${b}}{${a} + ${cs}} = \\frac{${d}(${a} + ${cs}) - ${b}}{${a} + ${cs}}$`,
+            `Solución particular: $y(x) = \\frac{${b}}{${a} + ${cs}}e^{${cs}x} + \\frac{${d}(${a} + ${cs}) - ${b}}{${a} + ${cs}}e^{-${a}x}$`
           ];
           break;
         case 2:
-          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = ${b}x^2 + <span class="math-inline">\{c\}</span>, con $y(0) = <span class="math-inline">\{d\}</span>`;
-          // Lógica de solución para este tipo
+          ecuacionTexto = `$\\frac{dy}{dx} + ${a}y = ${b}x + ${c}$, con $y(0) = ${d}$`;
           solucionPasosInteractiva = [
-            `Ecuación: $\\frac{dy}{dx} + ${a}y = ${b}x^2 + <span class="math-inline">\{c\}</span>`,
-            `Factor Integrante: <span class="math-inline">\\\\mu\(x\) \= e^\{</span>{a}x}$`,
-            // ... más pasos de la solución
+            `Ecuación: $\\frac{dy}{dx} + ${a}y = ${b}x + ${c}$`,
+            `Factor Integrante: $\\mu(x) = e^{${a}x}$`,
+            `Multiplicando por $\\mu(x)$: $e^{${a}x} \\frac{dy}{dx} + ${a}e^{${a}x} y = (${b}x + ${c})e^{${a}x}$`,
+            `$\\frac{d}{dx}(ye^{${a}x}) = (${b}x + ${c})e^{${a}x}$`,
+            `Integrando: $ye^{${a}x} = \\int (${b}x + ${c})e^{${a}x} dx$`,
+            // (La integral de la derecha requeriría integración por partes)
+            `Solución general: $y(x) = e^{-${a}x} \\left( \\int (${b}x + ${c})e^{${a}x} dx + C \\right)$`,
+            `Aplicando $y(0) = ${d}$: ${d} = 1 \cdot (0 + C) \implies C = ${d}`,
+            // (La solución particular dependerá del resultado de la integral)
+            `Solución particular: $y(x) = e^{-${a}x} \\left( \\int (${b}x + ${c})e^{${a}x} dx + ${d} \\right)$`
           ];
           break;
       }
@@ -239,6 +377,7 @@
 
     document.getElementById('mostrar-solucion-interactivo').addEventListener('click', () => {
       const pasosDiv = document.getElementById('ejemplo-interactivo');
+      pasosDiv.innerHTML = ''; // Limpiar la ecuación inicial
       ejemploInteractivoActual.pasos.forEach(paso => {
         pasosDiv.innerHTML += `<p>${paso}</p>`;
         MathJax.typesetPromise();
@@ -247,11 +386,16 @@
       numEjemplosResueltos++;
       if (numEjemplosResueltos >= maxEjemplosInteractivos) {
         document.getElementById('otro-ejemplo').style.display = 'none';
+        document.getElementById('continuar-ejemplos').disabled = false;
       }
     });
 
     document.getElementById('otro-ejemplo').addEventListener('click', () => {
       ejemploInteractivoActual = generarEjemploInteractivo();
+      const pasosDiv = document.getElementById('ejemplo-interactivo');
+      pasosDiv.innerHTML = `<h3>Resuelve la siguiente ecuación diferencial:</h3><p>${ejemploInteractivoActual.ecuacion}</p>`;
+      MathJax.typesetPromise();
+      document.getElementById('mostrar-solucion-interactivo').disabled = false;
     });
 
     document.getElementById('continuar-ejemplos').addEventListener('click', () => {
@@ -281,8 +425,24 @@
       indiceSeccionActual = 0;
       numEjemplosResueltos = 0;
       document.getElementById('otro-ejemplo').style.display = 'inline-block';
+      document.getElementById('continuar-ejemplos').disabled = true;
       mostrarSeccion(secciones[indiceSeccionActual]);
       // Resetear cualquier estado de las preguntas
+      document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+      document.querySelectorAll('.feedback').forEach(div => div.innerHTML = '');
+      document.querySelectorAll('button[id^="continuar-q"]').forEach(btn => btn.disabled = true);
+      indicePasoEjemplo1 = 0;
+      document.getElementById('pasos-ejemplo1').innerHTML = '';
+      document.getElementById('continuar-ejemplo1').textContent = 'Mostrar Solución Paso a Paso';
+      document.getElementById('continuar-ejemplo1').disabled = true;
+      indicePasoEjemplo2 = 0;
+      document.getElementById('pasos-ejemplo2').innerHTML = '';
+      document.getElementById('continuar-ejemplo2').textContent = 'Mostrar Solución Paso a Paso';
+      document.getElementById('continuar-ejemplo2').disabled = true;
+      ejemploInteractivoActual = null;
+      const ejemploDiv = document.getElementById('ejemplo-interactivo');
+      if (ejemploDiv) ejemploDiv.innerHTML = '';
+      document.getElementById('mostrar-solucion-interactivo').disabled = true;
     });
 
     document.getElementById('imprimir').addEventListener('click', () => {
@@ -331,7 +491,8 @@
     document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
       indicePasoEjemplo1 = 0;
       document.getElementById('pasos-ejemplo1').innerHTML = '';
-      document.getElementById('continuar-ejemplo1').disabled = false; // El botón ahora dice "Mostrar Solución"
+      document.getElementById('continuar-ejemplo1').textContent = 'Mostrar Solución Paso a Paso';
+      document.getElementById('continuar-ejemplo1').disabled = false;
     });
 
     document.getElementById('continuar-ejemplo1').addEventListener('click', () => {
@@ -349,9 +510,10 @@
     });
 
     document.getElementById('seccion-ejemplo2').addEventListener('show', () => {
-indicePasoEjemplo2 = 0;
+      indicePasoEjemplo2 = 0;
       document.getElementById('pasos-ejemplo2').innerHTML = '';
-      document.getElementById('continuar-ejemplo2').disabled = false; // El botón ahora dice "Mostrar Solución"
+      document.getElementById('continuar-ejemplo2').textContent = 'Mostrar Solución Paso a Paso';
+      document.getElementById('continuar-ejemplo2').disabled = false;
     });
 
     document.getElementById('continuar-ejemplo2').addEventListener('click', () => {
@@ -374,12 +536,12 @@ indicePasoEjemplo2 = 0;
       }
       numEjemplosResueltos = 0;
       document.getElementById('otro-ejemplo').style.display = 'inline-block';
-      const pasosDiv = document.getElementById('ejemplo-interactivo');
-      pasosDiv.innerHTML = `<h3>Resuelve la siguiente ecuación diferencial:</h3><p>${ejemploInteractivoActual.ecuacion}</p>`;
+      document.getElementById('continuar-ejemplos').disabled = true;
+      const ejemploDiv = document.getElementById('ejemplo-interactivo');
+      ejemploDiv.innerHTML = `<h3>Resuelve la siguiente ecuación diferencial:</h3><p>${ejemploInteractivoActual.ecuacion}</p>`;
       MathJax.typesetPromise();
       document.getElementById('mostrar-solucion-interactivo').disabled = false;
     });
   </script>
-      
 </body>
 </html>
