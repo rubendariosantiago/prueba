@@ -190,7 +190,7 @@
   </div>
 
   <script>
-    const ejemplo1 = {
+const ejemplo1 = {
       ecuacion: "Ecuación: $\\frac{dy}{dx} + \\frac{1}{x}y = x^2$, con $y(1) = 0$",
       pasos: [
         "Identificamos la forma general $\\frac{dy}{dx} + P(x)y = Q(x)$. En esta ecuación, $P(x) = \\frac{1}{x}$ y $Q(x) = x^2$.",
@@ -225,6 +225,18 @@
       ]
     };
 
+    const q1Respuestas = {
+      false: "¡Correcto! La presencia de $y^2$ hace que la ecuación no sea lineal.",
+      true: "Incorrecto. Para ser lineal, $y$ y sus derivadas deben tener potencia 1 y no multiplicarse entre sí."
+    };
+
+    const q2Respuestas = {
+      a: "Incorrecto. La integración es un paso posterior.",
+      b: "¡Correcto! El primer paso es encontrar el factor integrante.",
+      c: "Incorrecto. Despejar $y(x)$ es el último paso.",
+      d: "Incorrecto. Multiplicar por $x$ no es parte del método del factor integrante."
+    };
+
     const secciones = [
       'seccion-introduccion',
       'seccion-pregunta1',
@@ -252,7 +264,7 @@
       const divElement = document.getElementById(divId);
       if (indice < ejemplo.pasos.length) {
         divElement.innerHTML += `<p>${ejemplo.pasos[indice]}</p>`;
-        MathJax.typesetPromise();
+        MathJax.typesetPromise(); // Asegurarse de renderizar MathJax aquí
         indice++;
       }
       if (indice === ejemplo.pasos.length) {
@@ -279,6 +291,7 @@
         const feedbackDiv = document.getElementById('feedback1');
         const respuestaTexto = q1Respuestas[radio.value];
         feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
+        MathJax.typesetPromise(); // Renderizar MathJax después de la retroalimentación
         document.getElementById('continuar-q1').disabled = false;
       });
     });
@@ -288,6 +301,7 @@
         const feedbackDiv = document.getElementById('feedback2');
         const respuestaTexto = q2Respuestas[radio.value];
         feedbackDiv.innerHTML += `<p>${respuestaTexto}</p>`;
+        MathJax.typesetPromise(); // Renderizar MathJax después de la retroalimentación
         document.getElementById('continuar-q2').disabled = false;
       });
     });
@@ -333,14 +347,17 @@
       parametrosGenerados = generarParametros();
       mostrarEcuacion(parametrosGenerados);
       solucionPasosDiv.innerHTML = '';
+      MathJax.typesetPromise(); // Renderizar MathJax al generar la ecuación
       mostrarSolucionBtn.disabled = false;
     });
 
     mostrarSolucionBtn.addEventListener('click', () => {
       if (parametrosGenerados) {
         resolverED(parametrosGenerados);
+        MathJax.typesetPromise(); // Renderizar MathJax al mostrar la solución
       } else {
         solucionPasosDiv.innerHTML = 'Por favor, genera una ecuación primero.';
+        MathJax.typesetPromise(); // Asegurarse de renderizar este mensaje también
       }
     });
 
