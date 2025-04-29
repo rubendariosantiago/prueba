@@ -36,6 +36,7 @@
             padding: 10px;
             border-radius: 5px;
             background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
         }
         button {
             padding: 8px 15px;
@@ -52,6 +53,10 @@
         button:disabled {
             background-color: #bdc3c7;
             cursor: not-allowed;
+        }
+        label {
+            display: block;
+            margin: 8px 0;
         }
     </style>
 </head>
@@ -113,9 +118,9 @@
     <div id="seccion-pregunta3">
         <h3>Pregunta 3: Opción Múltiple</h3>
         <p>¿Cuál es el factor integrante para \( \frac{dy}{dx} + 3y = \sin(x) \)?</p>
-        <label><input type="radio" name="q3" value="a"> a) \( e^{\sin(x)} \)</label><br>
-        <label><input type="radio" name="q3" value="b"> b) \( 3x \)</label><br>
-        <label><input type="radio" name="q3" value="c"> c) \( e^{3x} \)</label><br>
+        <label><input type="radio" name="q3" value="a"> a) \( e^{\sin(x)} \)</label>
+        <label><input type="radio" name="q3" value="b"> b) \( 3x \)</label>
+        <label><input type="radio" name="q3" value="c"> c) \( e^{3x} \)</label>
         <label><input type="radio" name="q3" value="d"> d) \( \cos(x) \)</label>
         <div id="feedback3" class="feedback"></div>
         <button id="continuar-q3" disabled>Continuar</button>
@@ -124,132 +129,138 @@
     <!-- Sección Final -->
     <div id="seccion-final">
         <h3>¡Fin de la actividad!</h3>
+        <div id="feedback-final" class="feedback"></div>
         <button id="reiniciar">Reiniciar</button>
     </div>
 
-    <script>
-        // Datos de las preguntas
-        const respuestas = {
-            q1: {
-                true: "❌ Incorrecto. La ecuación no es lineal por el término \( y^2 \).",
-                false: "✅ Correcto. El término \( y^2 \) la hace no lineal."
-            },
-            q2: {
-                true: "❌ Incorrecto. Requiere el método del factor integrante.",
-                false: "✅ Correcto. Necesitas usar \( \mu(x) \)."
-            },
-            q3: {
-                a: "❌ Incorrecto. Revisa la fórmula del factor integrante.",
-                b: "❌ Incorrecto. \( P(x) = 3 \), no \( 3x \).",
-                c: "✅ Correcto. \( \mu(x) = e^{\int 3 dx} = e^{3x} \).",
-                d: "❌ Incorrecto. El factor integrante no usa \( Q(x) \)."
-            }
-        };
+<script>
+        // Datos de las preguntas
+        const respuestas = {
+            q1: {
+                true: "❌ Incorrecto. La ecuación no es lineal por el término \( y^2 \).",
+                false: "✅ Correcto. El término \( y^2 \) la hace no lineal."
+            },
+            q2: {
+                true: "❌ Incorrecto. Requiere el método del factor integrante.",
+                false: "✅ Correcto. Necesitas usar \( \mu(x) \)."
+            },
+            q3: {
+                a: "❌ Incorrecto. Revisa la fórmula del factor integrante.",
+                b: "❌ Incorrecto. \( P(x) = 3 \), no \( 3x \).",
+                c: "✅ Correcto. \( \mu(x) = e^{\int 3 dx} = e^{3x} \).",
+                d: "❌ Incorrecto. El factor integrante no usa \( Q(x) \)."
+            }
+        };
 
-        // Pasos de los ejemplos
-        const ejemplo1 = {
-            pasos: [
-                "1. Identificar \( P(x) = 2 \) y \( Q(x) = e^{-x} \).",
-                "2. Calcular factor integrante: \( \mu(x) = e^{\int 2 dx} = e^{2x} \).",
-                "3. Multiplicar la ecuación por \( \mu(x) \): \( e^{2x} \frac{dy}{dx} + 2e^{2x} y = e^{x} \).",
-                "4. Integrar ambos lados: \( y e^{2x} = e^{x} + C \).",
-                "5. Solución: \( y = e^{-x} + Ce^{-2x} \)."
-            ]
-        };
+        // Pasos de los ejemplos
+        const ejemplo1 = {
+            pasos: [
+                "1. Identificar \( P(x) = 2 \) y \( Q(x) = e^{-x} \).",
+                "2. Calcular factor integrante: \( \mu(x) = e^{\int 2 dx} = e^{2x} \).",
+                "3. Multiplicar la ecuación por \( \mu(x) \): \( e^{2x} \frac{dy}{dx} + 2e^{2x} y = e^{x} \).",
+                "4. Integrar ambos lados: \( y e^{2x} = e^{x} + C \).",
+                "5. Solución: \( y = e^{-x} + Ce^{-2x} \)."
+            ]
+        };
 
-        const ejemplo2 = {
-            pasos: [
-                "1. Identificar \( P(x) = -1 \) y \( Q(x) = x^2 \).",
-                "2. Factor integrante: \( \mu(x) = e^{\int -1 dx} = e^{-x} \).",
-                "3. Multiplicar ecuación: \( e^{-x} \frac{dy}{dx} - e^{-x} y = x^2 e^{-x} \).",
-                "4. Integrar: \( y e^{-x} = \int x^2 e^{-x} dx \) (usando integración por partes).",
-                "5. Solución: \( y = -x^2 - 2x - 2 + Ce^{x} \)."
-            ]
-        };
+        const ejemplo2 = {
+            pasos: [
+                "1. Identificar \( P(x) = -1 \) y \( Q(x) = x^2 \).",
+                "2. Factor integrante: \( \mu(x) = e^{\int -1 dx} = e^{-x} \).",
+                "3. Multiplicar ecuación: \( e^{-x} \frac{dy}{dx} - e^{-x} y = x^2 e^{-x} \).",
+                "4. Integrar: \( y e^{-x} = \int x^2 e^{-x} dx \) (usando integración por partes).",
+                "5. Solución: \( y = -x^2 - 2x - 2 + Ce^{x} \)."
+            ]
+        };
 
-        // Configuración del flujo
-        const secciones = [
-            'seccion-teoria1', 'seccion-pregunta1', 'seccion-teoria2',
-            'seccion-pregunta2', 'seccion-ejemplo1', 'seccion-ejemplo2',
-            'seccion-pregunta3', 'seccion-final'
-        ];
-        let indiceSeccionActual = 0;
+        // Configuración del flujo
+        const secciones = [
+            'seccion-teoria1', 'seccion-pregunta1', 'seccion-teoria2',
+            'seccion-pregunta2', 'seccion-ejemplo1', 'seccion-ejemplo2',
+            'seccion-pregunta3', 'seccion-final'
+        ];
+        let indiceSeccionActual = 0;
 
-        // Mostrar una sección y ocultar las demás
-        function mostrarSeccion(id) {
-            secciones.forEach(sec => {
-                document.getElementById(sec).style.display = 'none';
-            });
-            document.getElementById(id).style.display = 'block';
-        }
+        // Mostrar una sección y ocultar las demás
+        function mostrarSeccion(id) {
+            secciones.forEach(sec => {
+                document.getElementById(sec).style.display = 'none';
+            });
+            document.getElementById(id).style.display = 'block';
+            if (id === 'seccion-final') {
+                document.getElementById('feedback-final').innerHTML =
+                    "<p>🎉 ¡Has completado la actividad! Revisa tus respuestas o reinicia para practicar de nuevo.</p>";
+            }
+        }
 
-        // Función para mostrar pasos de ejemplos
-        function mostrarPasos(contenedorId, pasos, botonId) {
-            const contenedor = document.getElementById(contenedorId);
-            let pasoActual = 0;
-            
-            document.getElementById(botonId).addEventListener('click', function() {
-                if (pasoActual < pasos.length) {
-                    contenedor.innerHTML += `<p>${pasos[pasoActual]}</p>`;
-                    pasoActual++;
-                    MathJax.typesetPromise();
-                    if (pasoActual === pasos.length) {
-                        this.textContent = 'Continuar';
-                        this.onclick = () => {
-                            indiceSeccionActual++;
-                            mostrarSeccion(secciones[indiceSeccionActual]);
-                        };
-                    }
-                }
-            });
-        }
+        // Función para mostrar pasos de ejemplos
+        function configurarEjemplo(contenedorId, pasos, botonId) {
+            const contenedor = document.getElementById(contenedorId);
+            let pasoActual = 0;
 
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', () => {
-            // Configurar eventos de radio buttons
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                radio.addEventListener('change', function() {
-                    const nombrePregunta = this.name;
-                    const feedbackDiv = document.getElementById(`feedback${nombrePregunta.slice(1)}`);
-                    const continuarBtn = document.getElementById(`continuar-${nombrePregunta}`);
-                    
-                    if (respuestas[nombrePregunta] && respuestas[nombrePregunta][this.value]) {
-                        feedbackDiv.innerHTML = respuestas[nombrePregunta][this.value];
-                        continuarBtn.disabled = false;
-                        MathJax.typesetPromise();
-                    }
-                });
-            });
+            document.getElementById(botonId).addEventListener('click', function() {
+                if (pasoActual < pasos.length) {
+                    contenedor.innerHTML += `<p>${pasos[pasoActual]}</p>`;
+                    pasoActual++;
+                    MathJax.typesetPromise();
+                    if (pasoActual === pasos.length) {
+                        this.textContent = 'Continuar';
+                        this.onclick = () => {
+                            indiceSeccionActual++;
+                            mostrarSeccion(secciones[indiceSeccionActual]);
+                        };
+                    }
+                }
+            });
+        }
 
-            // Botones de continuar
-            secciones.forEach((sec, index) => {
-                const btn = document.querySelector(`#${sec} button`);
-                if (btn && !btn.id.includes('continuar-')) {
-                    btn.addEventListener('click', () => {
-                        indiceSeccionActual = index + 1;
-                        mostrarSeccion(secciones[indiceSeccionActual]);
-                    });
-                }
-            });
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            // Configurar eventos de radio buttons
+            document.querySelectorAll('input[type="radio"][name^="q"]').forEach(radio => { // Selecciona solo radios con 'name' que empiezan con 'q'
+                radio.addEventListener('change', function() {
+                    const nombrePregunta = this.name;
+                    const feedbackDiv = document.getElementById(`feedback${nombrePregunta.slice(1)}`);
+                    const continuarBtn = document.getElementById(`continuar-${nombrePregunta}`);
 
-            // Configurar ejemplos
-            mostrarPasos('pasos-ejemplo1', ejemplo1.pasos, 'continuar-ejemplo1');
-            mostrarPasos('pasos-ejemplo2', ejemplo2.pasos, 'continuar-ejemplo2');
+                    if (respuestas[nombrePregunta] && respuestas[nombrePregunta][this.value]) {
+                        feedbackDiv.innerHTML = respuestas[nombrePregunta][this.value];
+                        continuarBtn.disabled = false;
+                        MathJax.typesetPromise();
+                    }
+                });
+            });
 
-            // Reiniciar
-            document.getElementById('reiniciar').addEventListener('click', () => {
-                indiceSeccionActual = 0;
-                mostrarSeccion(secciones[0]);
-                document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-                document.querySelectorAll('.feedback').forEach(f => f.innerHTML = '');
-                document.querySelectorAll('button[id^="continuar-"]').forEach(b => b.disabled = true);
-                document.getElementById('pasos-ejemplo1').innerHTML = '';
-                document.getElementById('pasos-ejemplo2').innerHTML = '';
-            });
+            // Botones de continuar generales
+            document.getElementById('continuar-teoria1').addEventListener('click', () => {
+                indiceSeccionActual++;
+                mostrarSeccion(secciones[indiceSeccionActual]);
+            });
 
-            // Mostrar primera sección
-            mostrarSeccion(secciones[0]);
-        });
-    </script>
+            document.getElementById('continuar-teoria2').addEventListener('click', () => {
+                indiceSeccionActual++;
+                mostrarSeccion(secciones[indiceSeccionActual]);
+            });
+
+            // Configurar ejemplos
+            configurarEjemplo('pasos-ejemplo1', ejemplo1.pasos, 'continuar-ejemplo1');
+            configurarEjemplo('pasos-ejemplo2', ejemplo2.pasos, 'continuar-ejemplo2');
+
+            // Reiniciar
+            document.getElementById('reiniciar').addEventListener('click', () => {
+                indiceSeccionActual = 0;
+                mostrarSeccion(secciones[0]);
+                document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+                document.querySelectorAll('.feedback').forEach(f => f.innerHTML = '');
+                document.querySelectorAll('button[id^="continuar-"]').forEach(b => b.disabled = true);
+                document.getElementById('pasos-ejemplo1').innerHTML = '';
+                document.getElementById('pasos-ejemplo2').innerHTML = '';
+            });
+
+            // Mostrar primera sección
+            mostrarSeccion(secciones[0]);
+        });
+    </script>
+    
 </body>
 </html>
