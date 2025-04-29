@@ -78,7 +78,7 @@
         <label><input type="radio" name="q1" value="true"> Verdadero</label>
         <div id="feedback-container1" class="feedback-container">
             <div id="feedback1" class="feedback"></div>
-            <button id="continuar-q1">Continuar</button>
+            <button id="continuar-q1" disabled>Continuar</button>
         </div>
     </div>
 
@@ -96,7 +96,7 @@
         <label><input type="radio" name="q2" value="true"> Verdadero</label>
         <div id="feedback-container2" class="feedback-container">
             <div id="feedback2" class="feedback"></div>
-            <button id="continuar-q2">Continuar</button>
+            <button id="continuar-q2" disabled>Continuar</button>
         </div>
     </div>
 
@@ -121,7 +121,7 @@
         <label><input type="radio" name="q3" value="d"> d) \( \cos(x) \)</label>
         <div id="feedback-container3" class="feedback-container">
             <div id="feedback3" class="feedback"></div>
-            <button id="continuar-q3">Continuar</button>
+            <button id="continuar-q3" disabled>Continuar</button>
         </div>
     </div>
 
@@ -132,7 +132,7 @@
         <ul>
             <li><a href="https://es.wikipedia.org/wiki/Ecuaci%C3%B3n_diferencial_lineal" target="_blank">Wikipedia: Ecuación diferencial lineal</a></li>
             <li><a href="https://tutorial.math.lamar.edu/Classes/DE/LinearFirstOrder.aspx" target="_blank">Paul's Online Math Notes: Linear First Order DE's (en inglés)</a></li>
-            </ul>
+        </ul>
         <button id="reiniciar">Reiniciar</button>
         <button id="imprimir">Imprimir</button>
     </div>
@@ -205,7 +205,10 @@
                 feedbackDiv.innerHTML = respuestas[nombrePregunta][radioSeleccionado.value].texto;
                 feedbackContainer.style.maxHeight = '200px';
                 MathJax.typesetPromise();
-                document.getElementById(`continuar-${nombrePregunta}`).disabled = false;
+                const continuarBtn = document.getElementById(`continuar-${nombrePregunta}`);
+                if (continuarBtn) {
+                    continuarBtn.disabled = false;
+                }
                 respuestasUsuario[nombrePregunta] = respuestas[nombrePregunta][radioSeleccionado.value].correcta;
             }
         }
@@ -254,6 +257,9 @@
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', () => {
+            // Mostrar la primera sección
+            mostrarSeccion(secciones[0]);
+
             // Configurar eventos de radio buttons
             document.querySelectorAll('input[type="radio"][name^="q"]').forEach(radio => {
                 radio.addEventListener('change', function() {
@@ -266,13 +272,16 @@
             document.querySelectorAll('button[id^="continuar-"]').forEach(boton => {
                 boton.addEventListener('click', function() {
                     const idBoton = this.id;
-                    const nombrePregunta = idBoton.includes('-q') ? idBoton.split('-')[1] : null;
-                    if (nombrePregunta && !document.querySelector(`input[name="${nombrePregunta}"]:checked`)) {
+                    const nombreSeccion = idBoton.split('-')[1]; // Obtiene la parte después de "continuar-"
+
+                    if (nombreSeccion.startsWith('q') && !document.querySelector(`input[name="${nombreSeccion}"]:checked`)) {
                         // Si es un botón de pregunta y no hay respuesta seleccionada, no hacer nada
                         return;
                     }
                     indiceSeccionActual++;
-                    mostrarSeccion(secciones[indiceSeccionActual]);
+                    if (indiceSeccionActual < secciones.length) {
+                        mostrarSeccion(secciones[indiceSeccionActual]);
+                    }
                 });
             });
 
@@ -304,10 +313,6 @@
             document.getElementById('imprimir').addEventListener('click', () => {
                 window.print();
             });
-
-            // Mostrar primera sección
-
-               mostrarSeccion(secciones[0]);
         });
     </script>
 </body>
