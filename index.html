@@ -31,322 +31,224 @@
         #seccion-pregunta-final, #seccion-final {
             display: none;
         }
+        .feedback {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
 
     <h2>Ecuaciones Diferenciales Lineales de Primer Orden</h2>
 
+    <!-- Sección de Teoría 1 -->
     <div id="seccion-teoria1">
         <h3>Introducción</h3>
-        <p>Imagina que tienes una función \( y = y(x) \) y conoces la relación que existe entre esta función y su primera derivada, \( y' = \frac{dy}{dx} \) . Una <strong>ecuación diferencial</strong> es precisamente una ecuación que involucra a una función y sus derivadas.</p>
-        <p>En particular, una <strong>ecuación diferencial lineal de primer orden</strong> tiene una forma muy específica que podemos escribir de la siguiente manera:</p>
-        <p>\( \frac{dy}{dx} + P(x)y = Q(x) \) </p>
-        <p>Donde \( P(x) \) y \( Q(x) \) son funciones que dependen únicamente de la variable independiente \( x \) (o pueden ser constantes). La clave aquí es que la función \( y \) y su primera derivada \( y' \) aparecen de forma lineal; es decir, elevadas a la potencia de uno y no multiplicándose entre sí.</p>
+        <p>Una <strong>ecuación diferencial lineal de primer orden</strong> tiene la forma:</p>
+        <p>\( \frac{dy}{dx} + P(x)y = Q(x) \)</p>
         <button id="continuar-teoria1">Continuar</button>
     </div>
 
+    <!-- Pregunta 1 -->
     <div id="seccion-pregunta1">
         <h3>Pregunta 1: Verdadero o Falso</h3>
-        <p>La ecuación diferencial $$\frac{dy}{dx} + y^2 = x$$ es una ecuación diferencial lineal de primer orden.</p>
+        <p>La ecuación \( \frac{dy}{dx} + y^2 = x \) es lineal.</p>
         <label><input type="radio" name="q1" value="false"> Falso</label>
         <label><input type="radio" name="q1" value="true"> Verdadero</label>
         <div id="feedback1" class="feedback"></div>
         <button id="continuar-q1" disabled>Continuar</button>
     </div>
 
+    <!-- Sección de Teoría 2 -->
     <div id="seccion-teoria2">
-        <h3>Método de Solución: Factor Integrante</h3>
-        <p>El método del factor integrante transforma la ecuación en una forma integrable. El factor integrante \( \mu(x) \) se define como:</p>
-        <p>\( \mu(x) = e^{\int P(x) dx} \) </p>
-        <p>Multiplicando la ecuación por \( \mu(x) \) , el lado izquierdo se convierte en la derivada de \( (\mu(x) y(x)) \) :</p>
-        <p>\( \frac{d}{dx} [\mu(x) y(x)] = \mu(x) Q(x) \) </p>
-        <p>Integrando ambos lados y despejando \( y(x) \) , obtenemos la solución general.</p>
+        <h3>Método del Factor Integrante</h3>
+        <p>El factor integrante \( \mu(x) = e^{\int P(x) dx} \) transforma la ecuación en:</p>
+        <p>\( \frac{d}{dx} [\mu(x) y(x)] = \mu(x) Q(x) \)</p>
         <button id="continuar-teoria2">Continuar</button>
     </div>
 
+    <!-- Pregunta 2 -->
     <div id="seccion-pregunta2">
         <h3>Pregunta 2: Verdadero o Falso</h3>
-        <p>La ecuación diferencial \( \frac{dy}{dx}- 2y = x \)
-            se puede resolver directamente integrando ambos lados con respecto a \( x \) .</p>
+        <p>La ecuación \( \frac{dy}{dx} - 2y = x \) puede resolverse integrando directamente.</p>
         <label><input type="radio" name="q2" value="false"> Falso</label>
         <label><input type="radio" name="q2" value="true"> Verdadero</label>
         <div id="feedback2" class="feedback"></div>
         <button id="continuar-q2" disabled>Continuar</button>
     </div>
 
+    <!-- Ejemplo 1 -->
     <div id="seccion-ejemplo1">
-        <h3>Ejemplo 1: \( \frac{dy}{dx} + 2y = e^{-x} \) , con \( y(0) = 1 \) </h3>
+        <h3>Ejemplo 1: \( \frac{dy}{dx} + 2y = e^{-x} \)</h3>
         <div id="pasos-ejemplo1"></div>
-        <button id="continuar-ejemplo1" disabled>Mostrar Solución Paso a Paso</button>
+        <button id="continuar-ejemplo1">Mostrar Solución Paso a Paso</button>
     </div>
 
+    <!-- Ejemplo 2 -->
     <div id="seccion-ejemplo2">
-        <h3>Ejemplo 2: \( \frac{dy}{dx} - y = x^2 \) , con \( y(0) = 0 \) </h3>
+        <h3>Ejemplo 2: \( \frac{dy}{dx} - y = x^2 \)</h3>
         <div id="pasos-ejemplo2"></div>
-        <button id="continuar-ejemplo2" disabled>Mostrar Solución Paso a Paso</button>
+        <button id="continuar-ejemplo2">Mostrar Solución Paso a Paso</button>
     </div>
 
+    <!-- Pregunta 3 -->
     <div id="seccion-pregunta3">
         <h3>Pregunta 3: Opción Múltiple</h3>
-        <p>¿Cuál es el factor integrante para la ecuación diferencial \( \frac{dy}{dx} + 3y = \sin(x) \) ?</p>
-        <div class="options">
-            <label><input type="radio" name="q3" value="a"> a) \( e^{\sin(x)} \) </label>
-            <label><input type="radio" name="q3" value="b"> b) \( 3x \) </label>
-            <label><input type="radio" name="q3" value="c"> c) \( e^{3x} \) </label>
-            <label><input type="radio" name="q3" value="d"> d) \( \cos(x) \) </label>
-        </div>
+        <p>¿Cuál es el factor integrante para \( \frac{dy}{dx} + 3y = \sin(x) \)?</p>
+        <label><input type="radio" name="q3" value="a"> a) \( e^{\sin(x)} \)</label><br>
+        <label><input type="radio" name="q3" value="b"> b) \( 3x \)</label><br>
+        <label><input type="radio" name="q3" value="c"> c) \( e^{3x} \)</label><br>
+        <label><input type="radio" name="q3" value="d"> d) \( \cos(x) \)</label>
         <div id="feedback3" class="feedback"></div>
         <button id="continuar-q3" disabled>Continuar</button>
     </div>
 
-    <div id="seccion-ejemplos-interactivos">
-        <h3>Ejemplos Interactivos</h3>
-        <div id="ejemplo-interactivo"></div>
-        <button id="mostrar-solucion-interactivo" disabled>Mostrar Solución Paso a Paso</button>
-        <button id="otro-ejemplo">Otro Ejemplo</button>
-        <button id="continuar-ejemplos" disabled>Continuar</button>
-    </div>
-
-    <div id="seccion-pregunta-final">
-        <h3>Ejercicio Final: Opción Múltiple</h3>
-        <p>La solución general de la ecuación diferencial \( \frac{dy}{dx} + y = 0 \) es de la forma:</p>
-        <div class="options">
-            <label><input type="radio" name="qFinal" value="a"> a) \( y = C \) </label>
-            <label><input type="radio" name="qFinal" value="b"> b) \( y = Cx \) </label>
-            <label><input type="radio" name="qFinal" value="c"> c) \( y = Ce^{-x} \) </label>
-            <label><input type="radio" name="qFinal" value="d"> d) \( y = e^{-x} + C \) </label>
-        </div>
-        <div id="feedbackFinal" class="feedback"></div>
-        <button id="continuar-final" disabled>Continuar</button>
-    </div>
-
+    <!-- Sección Final -->
     <div id="seccion-final">
-        <h3>Final de la Actividad</h3>
-        <div id="resultado-final"></div>
-        <button id="reiniciar">Empezar de Nuevo</button>
-        <button id="imprimir">Imprimir en PDF</button>
-        <button id="terminar">Terminar</button>
+        <h3>¡Fin de la actividad!</h3>
+        <button id="reiniciar">Reiniciar</button>
     </div>
 
-  <script>
+    <script>
+        // Datos de las preguntas
+        const respuestas = {
+            q1: {
+                true: "❌ Incorrecto. La ecuación no es lineal por el término \( y^2 \).",
+                false: "✅ Correcto. El término \( y^2 \) la hace no lineal."
+            },
+            q2: {
+                true: "❌ Incorrecto. Requiere el método del factor integrante.",
+                false: "✅ Correcto. Necesitas usar \( \mu(x) \)."
+            },
+            q3: {
+                a: "❌ Incorrecto. Revisa la fórmula del factor integrante.",
+                b: "❌ Incorrecto. \( P(x) = 3 \), no \( 3x \).",
+                c: "✅ Correcto. \( \mu(x) = e^{\int 3 dx} = e^{3x} \).",
+                d: "❌ Incorrecto. El factor integrante no usa \( Q(x) \)."
+            }
+        };
+
+        // Pasos de los ejemplos
+        const ejemplo1 = {
+            pasos: [
+                "1. Identificar \( P(x) = 2 \) y \( Q(x) = e^{-x} \).",
+                "2. Calcular factor integrante: \( \mu(x) = e^{\int 2 dx} = e^{2x} \).",
+                "3. Multiplicar la ecuación por \( \mu(x) \): \( e^{2x} \frac{dy}{dx} + 2e^{2x} y = e^{x} \).",
+                "4. Integrar ambos lados: \( y e^{2x} = e^{x} + C \).",
+                "5. Solución: \( y = e^{-x} + Ce^{-2x} \)."
+            ]
+        };
+
+        const ejemplo2 = {
+            pasos: [
+                "1. Identificar \( P(x) = -1 \) y \( Q(x) = x^2 \).",
+                "2. Factor integrante: \( \mu(x) = e^{\int -1 dx} = e^{-x} \).",
+                "3. Multiplicar ecuación: \( e^{-x} \frac{dy}{dx} - e^{-x} y = x^2 e^{-x} \).",
+                "4. Integrar: \( y e^{-x} = \int x^2 e^{-x} dx \) (usando integración por partes).",
+                "5. Solución: \( y = -x^2 - 2x - 2 + Ce^{x} \)."
+            ]
+        };
+
+        // Configuración del flujo
         const secciones = [
-            'seccion-teoria1',
-            'seccion-pregunta1',
-            'seccion-teoria2',
-            'seccion-pregunta2',
-            'seccion-ejemplo1',
-            'seccion-ejemplo2',
-            'seccion-pregunta3',
-            'seccion-ejemplos-interactivos',
-            'seccion-pregunta-final',
-            'seccion-final'
+            'seccion-teoria1', 'seccion-pregunta1', 'seccion-teoria2',
+            'seccion-pregunta2', 'seccion-ejemplo1', 'seccion-ejemplo2',
+            'seccion-pregunta3', 'seccion-final'
         ];
         let indiceSeccionActual = 0;
-        let indicePasoEjemplo1 = 0;
-        let indicePasoEjemplo2 = 0;
-        let ejemploInteractivoActual;
-        let numEjemplosResueltos = 0;
-        const maxEjemplosInteractivos = 3; // Máximo de ejemplos interactivos
 
+        // Mostrar una sección y ocultar las demás
         function mostrarSeccion(id) {
-            const nuevaSeccion = document.getElementById(id);
-            if (nuevaSeccion) {
-                nuevaSeccion.style.display = 'block';
-                nuevaSeccion.dispatchEvent(new Event('show'));
-            }
-            if (indiceSeccionActual > 0) {
-                const seccionAnteriorId = secciones[indiceSeccionActual - 1];
-                const seccionAnterior = document.getElementById(seccionAnteriorId);
-                if (seccionAnterior) {
-                    seccionAnterior.style.display = 'block'; // Mantener visible la sección anterior
-                }
-            }
+            secciones.forEach(sec => {
+                document.getElementById(sec).style.display = 'none';
+            });
+            document.getElementById(id).style.display = 'block';
         }
 
+        // Función para mostrar pasos de ejemplos
+        function mostrarPasos(contenedorId, pasos, botonId) {
+            const contenedor = document.getElementById(contenedorId);
+            let pasoActual = 0;
+            
+            document.getElementById(botonId).addEventListener('click', function() {
+                if (pasoActual < pasos.length) {
+                    contenedor.innerHTML += `<p>${pasos[pasoActual]}</p>`;
+                    pasoActual++;
+                    MathJax.typesetPromise();
+                    if (pasoActual === pasos.length) {
+                        this.textContent = 'Continuar';
+                        this.onclick = () => {
+                            indiceSeccionActual++;
+                            mostrarSeccion(secciones[indiceSeccionActual]);
+                        };
+                    }
+                }
+            });
+        }
+
+        // Inicialización
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Botón de Continuar de la Teoría 1 ---
-            const botonContinuarTeoria1 = document.getElementById('continuar-teoria1');
-            if (botonContinuarTeoria1) {
-                botonContinuarTeoria1.addEventListener('click', () => {
-                    indiceSeccionActual++;
-                    mostrarSeccion(secciones[indiceSeccionActual]);
-                });
-            }
-
-            document.querySelectorAll('input[name^="q"]').forEach(radioGroup => {
-                const name = radioGroup.name;
-                const continuarBtnId = `continuar-${name}`;
-                const feedbackDivId = `feedback${name.slice(1)}`; // Elimina la 'q'
-                const continuarBtn = document.getElementById(continuarBtnId); // Obtener el botón aquí
-
-                // Adjuntar el listener de 'change' directamente al GRUPO de radio buttons
-                radioGroup.forEach(radio => {
-                    radio.addEventListener('change', () => {
-                        const respuestas = name === 'q1' ? q1Respuestas : (name === 'q2' ? q2Respuestas : (name === 'q3' ? q3Respuestas : qFinalRespuestas));
-                        const feedbackDiv = document.getElementById(feedbackDivId);
-                        if (feedbackDiv) {
-                            feedbackDiv.innerHTML = `<p>${respuestas[radio.value]}</p>`;
-                        }
+            // Configurar eventos de radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const nombrePregunta = this.name;
+                    const feedbackDiv = document.getElementById(`feedback${nombrePregunta.slice(1)}`);
+                    const continuarBtn = document.getElementById(`continuar-${nombrePregunta}`);
+                    
+                    if (respuestas[nombrePregunta] && respuestas[nombrePregunta][this.value]) {
+                        feedbackDiv.innerHTML = respuestas[nombrePregunta][this.value];
+                        continuarBtn.disabled = false;
                         MathJax.typesetPromise();
-                        if (continuarBtn) {
-                            continuarBtn.disabled = false;
-                        }
-                    });
+                    }
                 });
+            });
 
-                // Adjuntar el listener de 'click' al botón de "Continuar" FUERA del bucle de los radios
-                if (continuarBtn) {
-                    continuarBtn.addEventListener('click', () => {
-                        indiceSeccionActual++;
+            // Botones de continuar
+            secciones.forEach((sec, index) => {
+                const btn = document.querySelector(`#${sec} button`);
+                if (btn && !btn.id.includes('continuar-')) {
+                    btn.addEventListener('click', () => {
+                        indiceSeccionActual = index + 1;
                         mostrarSeccion(secciones[indiceSeccionActual]);
                     });
                 }
             });
-            
-            // --- Lógica para los Ejemplos ---
-            document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
-                indicePasoEjemplo1 = 0;
-                document.getElementById('pasos-ejemplo1').innerHTML = '';
-                document.getElementById('continuar-ejemplo1').textContent = 'Mostrar Solución Paso a Paso';
-                document.getElementById('continuar-ejemplo1').disabled = false;
-            });
 
-            document.getElementById('continuar-ejemplo1').addEventListener('click', () => {
-                indicePasoEjemplo1 = mostrarPaso(
-                    'pasos-ejemplo1',
-                    ejemplo1.pasos,
-                    indicePasoEjemplo1,
-                    'continuar-ejemplo1'
-                );
-                document.getElementById('continuar-ejemplo1').textContent = indicePasoEjemplo1 < ejemplo1.pasos.length ? 'Siguiente Paso' : 'Continuar';
-                if (indicePasoEjemplo1 === ejemplo1.pasos.length) {
-                    indiceSeccionActual++;
-                    mostrarSeccion(secciones[indiceSeccionActual]);
-                }
-            });
+            // Configurar ejemplos
+            mostrarPasos('pasos-ejemplo1', ejemplo1.pasos, 'continuar-ejemplo1');
+            mostrarPasos('pasos-ejemplo2', ejemplo2.pasos, 'continuar-ejemplo2');
 
-            document.getElementById('seccion-ejemplo2').addEventListener('show', () => {
-                indicePasoEjemplo2 = 0;
-                document.getElementById('pasos-ejemplo2').innerHTML = '';
-                document.getElementById('continuar-ejemplo2').textContent = 'Mostrar Solución Paso a Paso';
-                document.getElementById('continuar-ejemplo2').disabled = false;
-            });
-
-            document.getElementById('continuar-ejemplo2').addEventListener('click', () => {
-                indicePasoEjemplo2 = mostrarPaso(
-                    'pasos-ejemplo2',
-                    ejemplo2.pasos,
-                    indicePasoEjemplo2,
-                    'continuar-ejemplo2'
-                );
-                document.getElementById('continuar-ejemplo2').textContent = indicePasoEjemplo2 < ejemplo2.pasos.length ? 'Siguiente Paso' : 'Continuar';
-                if (indicePasoEjemplo2 === ejemplo2.pasos.length) {
-                    indiceSeccionActual++;
-                    mostrarSeccion(secciones[indiceSeccionActual]);
-                }
-            });
-
-            // --- Lógica para los Ejemplos Interactivos ---
-            document.getElementById('seccion-ejemplos-interactivos').addEventListener('show', () => {
-                if (!ejemploInteractivoActual) {
-                    ejemploInteractivoActual = generarEjemploInteractivo();
-                }
-                numEjemplosResueltos = 0;
-                document.getElementById('otro-ejemplo').style.display = 'inline-block';
-                document.getElementById('continuar-ejemplos').disabled = true;
-                const ejemploDiv = document.getElementById('ejemplo-interactivo');
-                ejemploDiv.innerHTML = `<h3>Resuelve la siguiente ecuación diferencial:</h3><p>${ejemploInteractivoActual.ecuacion}</p>`;
-                MathJax.typesetPromise();
-                document.getElementById('mostrar-solucion-interactivo').disabled = false;
-            });
-
-            document.getElementById('mostrar-solucion-interactivo').addEventListener('click', () => {
-                const pasosDiv = document.getElementById('ejemplo-interactivo');
-                pasosDiv.innerHTML = ''; // Limpiar la ecuación inicial
-                ejemploInteractivoActual.pasos.forEach(paso => {
-                    pasosDiv.innerHTML += `<p>${paso}</p>`;
-                    MathJax.typesetPromise();
-                });
-                document.getElementById('mostrar-solucion-interactivo').disabled = true;
-                numEjemplosResueltos++;
-                if (numEjemplosResueltos >= maxEjemplosInteractivos) {
-                    document.getElementById('otro-ejemplo').style.display = 'none';
-                    document.getElementById('continuar-ejemplos').disabled = false;
-                }
-            });
-
-            document.getElementById('otro-ejemplo').addEventListener('click', () => {
-                ejemploInteractivoActual = generarEjemploInteractivo();
-                const pasosDiv = document.getElementById('ejemplo-interactivo');
-                pasosDiv.innerHTML = `<h3>Resuelve la siguiente ecuación diferencial:</h3><p>${ejemploInteractivoActual.ecuacion}</p>`;
-                MathJax.typesetPromise();
-                document.getElementById('mostrar-solucion-interactivo').disabled = false;
-            });
-
-            document.getElementById('continuar-ejemplos').addEventListener('click', () => {
-                indiceSeccionActual++;
-                mostrarSeccion(secciones[indiceSeccionActual]);
-            });
-
-            // --- Lógica para la Pregunta Final ---
-            document.querySelectorAll('input[name="qFinal"]').forEach(radio => {
-                radio.addEventListener('change', () => {
-                    const feedbackDiv = document.getElementById('feedbackFinal');
-                    const respuestaTexto = qFinalRespuestas[radio.value];
-                    feedbackDiv.innerHTML = `<p>${respuestaTexto}</p>`;
-                    MathJax.typesetPromise();
-                    document.getElementById('continuar-final').disabled = false;
-                });
-            });
-
-            document.getElementById('continuar-final').addEventListener('click', () => {
-                indiceSeccionActual++;
-                mostrarSeccion(secciones[indiceSeccionActual]);
-                // Aquí podrías registrar la respuesta del alumno
-            });
-
-            // --- Lógica para la Sección Final ---
+            // Reiniciar
             document.getElementById('reiniciar').addEventListener('click', () => {
                 indiceSeccionActual = 0;
-                numEjemplosResueltos = 0;
-                document.getElementById('otro-ejemplo').style.display = 'inline-block';
-                document.getElementById('continuar-ejemplos').disabled = true;
-                // Ocultar todas las secciones excepto la primera al reiniciar
-                secciones.forEach((seccionId, index) => {
-                    const element = document.getElementById(seccionId);
-                    element.style.display = (index === 0) ? 'block' : 'none';
-                });
-                // Resetear cualquier estado de las preguntas
-                document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
-                document.querySelectorAll('.feedback').forEach(div => div.innerHTML = '');
-                document.querySelectorAll('button[id^="continuar-q"]').forEach(btn => btn.disabled = true);
-                indicePasoEjemplo1 = 0;
+                mostrarSeccion(secciones[0]);
+                document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+                document.querySelectorAll('.feedback').forEach(f => f.innerHTML = '');
+                document.querySelectorAll('button[id^="continuar-"]').forEach(b => b.disabled = true);
                 document.getElementById('pasos-ejemplo1').innerHTML = '';
-                document.getElementById('continuar-ejemplo1').textContent = 'Mostrar Solución Paso a Paso';
-                document.getElementById('continuar-ejemplo1').disabled = true;
-                indicePasoEjemplo2 = 0;
                 document.getElementById('pasos-ejemplo2').innerHTML = '';
-                document.getElementById('continuar-ejemplo2').textContent = 'Mostrar Solución Paso a Paso';
-                document.getElementById('continuar-ejemplo2').disabled = true;
-                ejemploInteractivoActual = null;
-                const ejemploDiv = document.getElementById('ejemplo-interactivo');
-                if (ejemploDiv) ejemploDiv.innerHTML = '';
-                document.getElementById('mostrar-solucion-interactivo').disabled = true;
             });
 
-            document.getElementById('imprimir').addEventListener('click', () => {
-                window.print();
-            });
-
-            document.getElementById('terminar').addEventListener('click', () => {
-                document.getElementById('resultado-final').innerHTML = '<p>¡Gracias por participar!</p>';
-                // Ocultar los botones de la sección final
-                document.querySelectorAll('#seccion-final button').forEach(btn => btn.style.display = 'none');
-            });
-
-            // --- Control de flujo principal ---
-            mostrarSeccion(secciones[indiceSeccionActual]);
+            // Mostrar primera sección
+            mostrarSeccion(secciones[0]);
         });
     </script>
 </body>
