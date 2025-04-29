@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecuaciones Diferenciales Lineales de Primer Orden</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 30px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        h2, h3, h4 {
+            color: #2c3e50;
+        }
+        h3 {
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+        #seccion-pregunta1 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Ecuaciones Diferenciales Lineales de Primer Orden</h2>
+
+    <div id="seccion-teoria1">
+        <h3>Introducción</h3>
+        <p>Imagina que tienes una función \( y = y(x) \) y conoces la relación que existe entre esta función y su primera derivada, \( y' = \frac{dy}{dx} \) . Una <strong>ecuación diferencial</strong> es precisamente una ecuación que involucra a una función y sus derivadas.</p>
+        <p>En particular, una <strong>ecuación diferencial lineal de primer orden</strong> tiene una forma muy específica que podemos escribir de la siguiente manera:</p>
+        <p>\( \frac{dy}{dx} + P(x)y = Q(x) \) </p>
+        <p>Donde \( P(x) \) y \( Q(x) \) son funciones que dependen únicamente de la variable independiente \( x \) (o pueden ser constantes). La clave aquí es que la función \( y \) y su primera derivada \( y' \) aparecen de forma lineal; es decir, elevadas a la potencia de uno y no multiplicándose entre sí.</p>
+        <button id="continuar-teoria1">Continuar</button>
+    </div>
+
+    <div id="seccion-pregunta1">
+        <h3>Pregunta 1: Verdadero o Falso</h3>
+        <p>La ecuación diferencial $$\frac{dy}{dx} + y^2 = x$$ es una ecuación diferencial lineal de primer orden.</p>
+        <label><input type="radio" name="q1" value="false"> Falso</label>
+        <label><input type="radio" name="q1" value="true"> Verdadero</label>
+        <div id="feedback1" class="feedback"></div>
+        <button id="continuar-q1" disabled>Continuar</button>
+    </div>
+
+    <script>
+        const secciones = [
+            'seccion-teoria1',
+            'seccion-pregunta1',
+            // ... otras secciones
+        ];
+        let indiceSeccionActual = 0;
+
+        function mostrarSeccion(id) {
+            secciones.forEach(seccionId => {
+                const element = document.getElementById(seccionId);
+                element.style.display = (seccionId === id) ? 'block' : 'none';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const botonContinuarTeoria1 = document.getElementById('continuar-teoria1');
+            if (botonContinuarTeoria1) {
+                botonContinuarTeoria1.addEventListener('click', () => {
+                    indiceSeccionActual++;
+                    mostrarSeccion(secciones[indiceSeccionActual]);
+                });
+            }
+
+            mostrarSeccion(secciones[indiceSeccionActual]); // Mostrar la primera sección al cargar
+        });
+    </script>
+</body>
+</html>
