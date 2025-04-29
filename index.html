@@ -174,17 +174,20 @@
                 });
             }
 
-            // --- Lógica para las Preguntas ---
             document.querySelectorAll('input[name^="q"]').forEach(radioGroup => {
                 const name = radioGroup.name;
                 const continuarBtnId = `continuar-${name}`;
                 const feedbackDivId = `feedback${name.slice(1)}`; // Elimina la 'q'
                 const continuarBtn = document.getElementById(continuarBtnId); // Obtener el botón aquí
 
+                // Adjuntar el listener de 'change' directamente al GRUPO de radio buttons
                 radioGroup.forEach(radio => {
                     radio.addEventListener('change', () => {
                         const respuestas = name === 'q1' ? q1Respuestas : (name === 'q2' ? q2Respuestas : (name === 'q3' ? q3Respuestas : qFinalRespuestas));
-                        document.getElementById(feedbackDivId).innerHTML = `<p>${respuestas[radio.value]}</p>`;
+                        const feedbackDiv = document.getElementById(feedbackDivId);
+                        if (feedbackDiv) {
+                            feedbackDiv.innerHTML = `<p>${respuestas[radio.value]}</p>`;
+                        }
                         MathJax.typesetPromise();
                         if (continuarBtn) {
                             continuarBtn.disabled = false;
@@ -192,7 +195,7 @@
                     });
                 });
 
-                // Adjuntar el listener al botón de "Continuar" FUERA del bucle de los radios
+                // Adjuntar el listener de 'click' al botón de "Continuar" FUERA del bucle de los radios
                 if (continuarBtn) {
                     continuarBtn.addEventListener('click', () => {
                         indiceSeccionActual++;
@@ -200,7 +203,7 @@
                     });
                 }
             });
-
+            
             // --- Lógica para los Ejemplos ---
             document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
                 indicePasoEjemplo1 = 0;
