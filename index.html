@@ -129,7 +129,7 @@
         <button id="terminar">Terminar</button>
     </div>
 
-    <script>
+  <script>
         const secciones = [
             'seccion-teoria1',
             'seccion-pregunta1',
@@ -150,24 +150,22 @@
         const maxEjemplosInteractivos = 3; // Máximo de ejemplos interactivos
 
         function mostrarSeccion(id) {
-            secciones.forEach(seccionId => {
-                const element = document.getElementById(seccionId);
-                element.style.display = (seccionId === id) ? 'block' : 'none';
-            });
-            const currentSection = document.getElementById(secciones[indiceSeccionActual]);
-            if (currentSection) {
-                currentSection.style.display = 'block';
-                currentSection.dispatchEvent(new Event('show'));
+            const nuevaSeccion = document.getElementById(id);
+            if (nuevaSeccion) {
+                nuevaSeccion.style.display = 'block';
+                nuevaSeccion.dispatchEvent(new Event('show'));
             }
             if (indiceSeccionActual > 0) {
-                const previousSection = document.getElementById(secciones[indiceSeccionActual - 1]);
-                if (previousSection) {
-                    previousSection.style.display = 'block'; // Mantener visible la sección anterior
+                const seccionAnteriorId = secciones[indiceSeccionActual - 1];
+                const seccionAnterior = document.getElementById(seccionAnteriorId);
+                if (seccionAnterior) {
+                    seccionAnterior.style.display = 'block'; // Mantener visible la sección anterior
                 }
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Botón de Continuar de la Teoría 1 ---
             const botonContinuarTeoria1 = document.getElementById('continuar-teoria1');
             if (botonContinuarTeoria1) {
                 botonContinuarTeoria1.addEventListener('click', () => {
@@ -176,21 +174,25 @@
                 });
             }
 
+            // --- Lógica para las Preguntas ---
             document.querySelectorAll('input[name^="q"]').forEach(radioGroup => {
                 const name = radioGroup.name;
                 const continuarBtnId = `continuar-${name}`;
                 const feedbackDivId = `feedback${name.slice(1)}`; // Elimina la 'q'
+                const continuarBtn = document.getElementById(continuarBtnId); // Obtener el botón aquí
 
                 radioGroup.forEach(radio => {
                     radio.addEventListener('change', () => {
                         const respuestas = name === 'q1' ? q1Respuestas : (name === 'q2' ? q2Respuestas : (name === 'q3' ? q3Respuestas : qFinalRespuestas));
                         document.getElementById(feedbackDivId).innerHTML = `<p>${respuestas[radio.value]}</p>`;
                         MathJax.typesetPromise();
-                        document.getElementById(continuarBtnId).disabled = false;
+                        if (continuarBtn) {
+                            continuarBtn.disabled = false;
+                        }
                     });
                 });
 
-                const continuarBtn = document.getElementById(continuarBtnId);
+                // Adjuntar el listener al botón de "Continuar" FUERA del bucle de los radios
                 if (continuarBtn) {
                     continuarBtn.addEventListener('click', () => {
                         indiceSeccionActual++;
@@ -199,6 +201,7 @@
                 }
             });
 
+            // --- Lógica para los Ejemplos ---
             document.getElementById('seccion-ejemplo1').addEventListener('show', () => {
                 indicePasoEjemplo1 = 0;
                 document.getElementById('pasos-ejemplo1').innerHTML = '';
@@ -241,6 +244,7 @@
                 }
             });
 
+            // --- Lógica para los Ejemplos Interactivos ---
             document.getElementById('seccion-ejemplos-interactivos').addEventListener('show', () => {
                 if (!ejemploInteractivoActual) {
                     ejemploInteractivoActual = generarEjemploInteractivo();
@@ -300,7 +304,7 @@
             });
 
             // --- Lógica para la Sección Final ---
-          document.getElementById('reiniciar').addEventListener('click', () => {
+            document.getElementById('reiniciar').addEventListener('click', () => {
                 indiceSeccionActual = 0;
                 numEjemplosResueltos = 0;
                 document.getElementById('otro-ejemplo').style.display = 'inline-block';
