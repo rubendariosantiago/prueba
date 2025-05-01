@@ -137,7 +137,7 @@
         <button id="imprimir">Imprimir</button>
     </div>
 
-    <script>
+   <script>
         // Datos de las preguntas
         const respuestas = {
             q1: {
@@ -187,10 +187,12 @@
         let puntuacion = 0;
         const respuestasUsuario = {};
 
-        // Mostrar una sección
-        function mostrarSeccion(id) {
-            document.getElementById(id).style.display = 'block';
-            if (id === 'seccion-final') {
+        // Mostrar una sección y ocultar las demás
+        function mostrarSeccion(indice) {
+            secciones.forEach((id, i) => {
+                document.getElementById(id).style.display = (i === indice) ? 'block' : 'none';
+            });
+            if (secciones[indice] === 'seccion-final') {
                 mostrarRetroalimentacionFinal();
             }
         }
@@ -248,7 +250,7 @@
                         this.textContent = 'Continuar';
                         this.onclick = () => {
                             indiceSeccionActual++;
-                            mostrarSeccion(secciones[indiceSeccionActual]);
+                            mostrarSeccion(indiceSeccionActual);
                         };
                     }
                 }
@@ -257,8 +259,8 @@
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', () => {
-            // Mostrar la primera sección
-            mostrarSeccion(secciones[0]);
+            // Mostrar solo la primera sección al cargar
+            mostrarSeccion(0);
 
             // Configurar eventos de radio buttons
             document.querySelectorAll('input[type="radio"][name^="q"]').forEach(radio => {
@@ -272,15 +274,15 @@
             document.querySelectorAll('button[id^="continuar-"]').forEach(boton => {
                 boton.addEventListener('click', function() {
                     const idBoton = this.id;
-                    const nombreSeccion = idBoton.split('-')[1]; // Obtiene la parte después de "continuar-"
+                    const nombreSeccion = idBoton.split('-')[1];
 
                     if (nombreSeccion.startsWith('q') && !document.querySelector(`input[name="${nombreSeccion}"]:checked`)) {
-                        // Si es un botón de pregunta y no hay respuesta seleccionada, no hacer nada
-                        return;
+                        return; // No avanzar si es pregunta y no se ha respondido
                     }
+
                     indiceSeccionActual++;
                     if (indiceSeccionActual < secciones.length) {
-                        mostrarSeccion(secciones[indiceSeccionActual]);
+                        mostrarSeccion(indiceSeccionActual);
                     }
                 });
             });
@@ -294,9 +296,7 @@
                 indiceSeccionActual = 0;
                 puntuacion = 0;
                 respuestasUsuario = {};
-                secciones.forEach((id, index) => {
-                    document.getElementById(id).style.display = (index === 0) ? 'block' : 'none';
-                });
+                mostrarSeccion(0); // Mostrar la primera sección
                 document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
                 document.querySelectorAll('.feedback-container').forEach(f => {
                     f.style.maxHeight = '0';
