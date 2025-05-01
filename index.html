@@ -67,13 +67,13 @@
     <div id="seccion-teoria1">
         <h3>Introducción</h3>
         <p>Una <strong>ecuación diferencial lineal de primer orden</strong> tiene la forma:</p>
-        <p>\( \frac{dy}{dx} + P(x)y = Q(x) \)</p>
+        <p>$$ \frac{dy}{dx} + P(x)y = Q(x) $$</p>
         <button id="continuar-teoria1">Continuar</button>
     </div>
 
     <div id="seccion-question1">
         <h3>Pregunta 1: Verdadero o Falso</h3>
-        <p>La ecuación \( \frac{dy}{dx} + y^2 = x \) es lineal.</p>
+        <p>La ecuación siguiente es lineal $$ \frac{dy}{dx} + y^2 = x $$.</p>
         <label><input type="radio" name="q1" value="false"> Falso</label>
         <label><input type="radio" name="q1" value="true"> Verdadero</label>
         <div id="feedback-container1" class="feedback-container">
@@ -91,7 +91,7 @@
 
     <div id="seccion-question2">
         <h3>Pregunta 2: Verdadero o Falso</h3>
-        <p>La ecuación \( \frac{dy}{dx} - 2y = x \) puede resolverse integrando directamente.</p>
+        <p>La ecuación $$ \frac{dy}{dx} - 2y = x $$ puede resolverse integrando directamente.</p>
         <label><input type="radio" name="q2" value="false"> Falso</label>
         <label><input type="radio" name="q2" value="true"> Verdadero</label>
         <div id="feedback-container2" class="feedback-container">
@@ -101,21 +101,21 @@
     </div>
 
     <div id="seccion-ejemplo1">
-        <h3>Ejemplo 1: \( \frac{dy}{dx} + 2y = e^{-x} \)</h3>
+        <h3>Ejemplo 1: Resolver la ecuacion diferencial $$ \frac{dy}{dx} + 2y = e^{-x} $$</h3>
         <div id="pasos-ejemplo1"></div>
         <button id="continuar-ejemplo1">Mostrar Solución Paso a Paso</button>
     </div>
 
     <div id="seccion-ejemplo2">
-        <h3>Ejemplo 2: \( \frac{dy}{dx} - y = x^2 \)</h3>
+        <h3>Ejemplo 2: Resolver la ecuacion diferencial $$ \frac{dy}{dx} - y = x^2 $$</h3>
         <div id="pasos-ejemplo2"></div>
         <button id="continuar-ejemplo2">Mostrar Solución Paso a Paso</button>
     </div>
 
     <div id="seccion-question3">
         <h3>Pregunta 3: Opción Múltiple</h3>
-        <p>¿Cuál es el factor integrante para \( \frac{dy}{dx} + 3y = \sin(x) \)?</p>
-        <label><input type="radio" name="q3" value="a"> a) \( e^{\sin(x)} \)</label>
+        <p> Determinar  el factor integrante de la ecuación diferencial $$ \frac{dy}{dx} + 3y = \sin(x) $$</p>
+        <label><input type="radio" name="q3" value="a"> a) \\( e^{\sin(x)} \\)</label>
         <label><input type="radio" name="q3" value="b"> b) \( 3x \)</label>
         <label><input type="radio" name="q3" value="c"> c) \( e^{3x} \)</label>
         <label><input type="radio" name="q3" value="d"> d) \( \cos(x) \)</label>
@@ -196,20 +196,20 @@
         }
 
         // Función para mostrar feedback y habilitar "Continuar"
-        function mostrarFeedback(nombrePregunta) {
-            const feedbackContainer = document.getElementById(`feedback-container${nombrePregunta.slice(1)}`);
-            const radioSeleccionado = document.querySelector(`input[name="${nombrePregunta}"]:checked`);
+        function mostrarFeedback(nombreQuestion) {
+            const feedbackContainer = document.getElementById(`feedback-container${nombreQuestion.slice(1)}`);
+            const radioSeleccionado = document.querySelector(`input[name="${nombreQuestion}"]:checked`);
 
-            if (radioSeleccionado && respuestas[nombrePregunta]) {
-                const feedbackDiv = document.getElementById(`feedback${nombrePregunta.slice(1)}`);
-                feedbackDiv.innerHTML = respuestas[nombrePregunta][radioSeleccionado.value].texto;
+            if (radioSeleccionado && respuestas[nombreQuestion]) {
+                const feedbackDiv = document.getElementById(`feedback${nombreQuestion.slice(1)}`);
+                feedbackDiv.innerHTML = respuestas[nombreQuestion][radioSeleccionado.value].texto;
                 feedbackContainer.style.maxHeight = '200px';
                 MathJax.typesetPromise();
-                const continuarBtn = document.getElementById(`continuar-${nombrePregunta}`);
+                const continuarBtn = document.getElementById(`continuar-${nombreQuestion}`);
                 if (continuarBtn) {
                     continuarBtn.disabled = false;
                 }
-                respuestasUsuario[nombrePregunta] = respuestas[nombrePregunta][radioSeleccionado.value].correcta;
+                respuestasUsuario[nombreQuestion] = respuestas[nombreQuestion][radioSeleccionado.value].correcta;
             }
         }
 
@@ -263,8 +263,8 @@
             // Configurar eventos de radio buttons
             document.querySelectorAll('input[type="radio"][name^="q"]').forEach(radio => {
                 radio.addEventListener('change', function() {
-                    const nombrePregunta = this.name;
-                    mostrarFeedback(nombrePregunta);
+                    const nombreQuestion = this.name;
+                    mostrarFeedback(nombreQuestion);
                 });
             });
 
