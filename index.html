@@ -26,10 +26,7 @@
             padding-bottom: 5px;
             margin-top: 25px;
         }
-        #seccion-pregunta1, #seccion-teoria2, #seccion-pregunta2, #seccion-ejemplo1,
-        #seccion-ejemplo2, #seccion-pregunta3, #seccion-final {
-            display: none;
-        }
+        /* Las reglas de display: none; ahora se aplican directamente en el HTML */
         .feedback-container {
             margin: 15px 0;
             max-height: 0;
@@ -71,7 +68,7 @@
         <button id="continuar-teoria1">Continuar</button>
     </div>
 
-    <div id="seccion-question1">
+    <div id="seccion-question1" style="display: none;">
         <h3>Pregunta 1: Verdadero o Falso</h3>
         <p>La ecuación siguiente es lineal $$ \frac{dy}{dx} + y^2 = x $$.</p>
         <label><input type="radio" name="q1" value="false"> Falso</label>
@@ -82,14 +79,14 @@
         </div>
     </div>
 
-    <div id="seccion-teoria2">
+    <div id="seccion-teoria2" style="display: none;">
         <h3>Método del Factor Integrante</h3>
         <p>El factor integrante \( \mu(x) = e^{\int P(x) dx} \) transforma la ecuación en:</p>
         <p>\( \frac{d}{dx} [\mu(x) y(x)] = \mu(x) Q(x) \)</p>
         <button id="continuar-teoria2">Continuar</button>
     </div>
 
-    <div id="seccion-question2">
+    <div id="seccion-question2" style="display: none;">
         <h3>Pregunta 2: Verdadero o Falso</h3>
         <p>La ecuación $$ \frac{dy}{dx} - 2y = x $$ puede resolverse integrando directamente.</p>
         <label><input type="radio" name="q2" value="false"> Falso</label>
@@ -100,22 +97,22 @@
         </div>
     </div>
 
-    <div id="seccion-ejemplo1">
+    <div id="seccion-ejemplo1" style="display: none;">
         <h3>Ejemplo 1: Resolver la ecuacion diferencial $$ \frac{dy}{dx} + 2y = e^{-x} $$</h3>
         <div id="pasos-ejemplo1"></div>
         <button id="continuar-ejemplo1">Mostrar Solución Paso a Paso</button>
     </div>
 
-    <div id="seccion-ejemplo2">
+    <div id="seccion-ejemplo2" style="display: none;">
         <h3>Ejemplo 2: Resolver la ecuacion diferencial $$ \frac{dy}{dx} - y = x^2 $$</h3>
         <div id="pasos-ejemplo2"></div>
         <button id="continuar-ejemplo2">Mostrar Solución Paso a Paso</button>
     </div>
 
-    <div id="seccion-question3">
+    <div id="seccion-question3" style="display: none;">
         <h3>Pregunta 3: Opción Múltiple</h3>
         <p> Determinar  el factor integrante de la ecuación diferencial $$ \frac{dy}{dx} + 3y = \sin(x) $$</p>
-        <label><input type="radio" name="q3" value="a"> a) \\( e^{\sin(x)} \\)</label>
+        <label><input type="radio" name="q3" value="a"> a) \( e^{\sin(x)} \)</label>
         <label><input type="radio" name="q3" value="b"> b) \( 3x \)</label>
         <label><input type="radio" name="q3" value="c"> c) \( e^{3x} \)</label>
         <label><input type="radio" name="q3" value="d"> d) \( \cos(x) \)</label>
@@ -125,7 +122,7 @@
         </div>
     </div>
 
-    <div id="seccion-final">
+    <div id="seccion-final" style="display: none;">
         <h3>¡Fin de la actividad!</h3>
         <div id="retroalimentacion-general" class="feedback"></div>
         <h4>Referencias Adicionales</h4>
@@ -137,7 +134,7 @@
         <button id="imprimir">Imprimir</button>
     </div>
 
-   <script>
+    <script>
         // Datos de las preguntas
         const respuestas = {
             q1: {
@@ -187,7 +184,7 @@
         let puntuacion = 0;
         const respuestasUsuario = {};
 
-        // Mostrar una sección y ocultar las demás
+        // Mostrar una sección
         function mostrarSeccion(indice) {
             secciones.forEach((id, i) => {
                 document.getElementById(id).style.display = (i === indice) ? 'block' : 'none';
