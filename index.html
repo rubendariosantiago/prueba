@@ -71,14 +71,14 @@
         <button id="continuar-teoria1">Continuar</button>
     </div>
 
-    <div id="seccion-pregunta1">
+    <div id="seccion-question1">
         <h3>Pregunta 1: Verdadero o Falso</h3>
         <p>La ecuación \( \frac{dy}{dx} + y^2 = x \) es lineal.</p>
         <label><input type="radio" name="q1" value="false"> Falso</label>
         <label><input type="radio" name="q1" value="true"> Verdadero</label>
         <div id="feedback-container1" class="feedback-container">
             <div id="feedback1" class="feedback"></div>
-            <button id="continuar-pregunta1" disabled>Continuar</button>
+            <button id="continuar-question1" disabled>Continuar</button>
         </div>
     </div>
 
@@ -89,14 +89,14 @@
         <button id="continuar-teoria2">Continuar</button>
     </div>
 
-    <div id="seccion-pregunta2">
+    <div id="seccion-question2">
         <h3>Pregunta 2: Verdadero o Falso</h3>
         <p>La ecuación \( \frac{dy}{dx} - 2y = x \) puede resolverse integrando directamente.</p>
         <label><input type="radio" name="q2" value="false"> Falso</label>
         <label><input type="radio" name="q2" value="true"> Verdadero</label>
         <div id="feedback-container2" class="feedback-container">
             <div id="feedback2" class="feedback"></div>
-            <button id="continuar-pregunta2" disabled>Continuar</button>
+            <button id="continuar-question2" disabled>Continuar</button>
         </div>
     </div>
 
@@ -112,7 +112,7 @@
         <button id="continuar-ejemplo2">Mostrar Solución Paso a Paso</button>
     </div>
 
-    <div id="seccion-pregunta3">
+    <div id="seccion-question3">
         <h3>Pregunta 3: Opción Múltiple</h3>
         <p>¿Cuál es el factor integrante para \( \frac{dy}{dx} + 3y = \sin(x) \)?</p>
         <label><input type="radio" name="q3" value="a"> a) \( e^{\sin(x)} \)</label>
@@ -121,7 +121,7 @@
         <label><input type="radio" name="q3" value="d"> d) \( \cos(x) \)</label>
         <div id="feedback-container3" class="feedback-container">
             <div id="feedback3" class="feedback"></div>
-            <button id="continuar-pregunta3" disabled>Continuar</button>
+            <button id="continuar-question3" disabled>Continuar</button>
         </div>
     </div>
 
@@ -179,9 +179,9 @@
 
         // Configuración del flujo
         const secciones = [
-            'seccion-teoria1', 'seccion-pregunta1', 'seccion-teoria2',
-            'seccion-pregunta2', 'seccion-ejemplo1', 'seccion-ejemplo2',
-            'seccion-pregunta3', 'seccion-final'
+            'seccion-teoria1', 'seccion-question1', 'seccion-teoria2',
+            'seccion-question2', 'seccion-ejemplo1', 'seccion-ejemplo2',
+            'seccion-question3', 'seccion-final'
         ];
         let indiceSeccionActual = 0;
         let puntuacion = 0;
