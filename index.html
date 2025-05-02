@@ -67,6 +67,11 @@
         .opcion {
             margin: 5px 0;
         }
+        .contador-preguntas {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
         @media print {
             button {
                 display: none !important;
@@ -94,6 +99,7 @@
     <!-- Pregunta 1 -->
     <div id="seccion-question1" class="seccion-actividad">
         <h3>Pregunta 1: Verdadero o Falso</h3>
+        <div class="contador-preguntas">Pregunta 1 de 3</div>
         <p>La ecuación siguiente es lineal $$ \frac{dy}{dx} + y^2 = x $$.</p>
         <div class="opcion"><label><input type="radio" name="q1" value="false"> Falso</label></div>
         <div class="opcion"><label><input type="radio" name="q1" value="true"> Verdadero</label></div>
@@ -111,6 +117,7 @@
     <!-- Pregunta 2 -->
     <div id="seccion-question2" class="seccion-actividad">
         <h3>Pregunta 2: Verdadero o Falso</h3>
+        <div class="contador-preguntas">Pregunta 2 de 3</div>
         <p>La ecuación $$ \frac{dy}{dx} - 2y = x $$ puede resolverse integrando directamente.</p>
         <div class="opcion"><label><input type="radio" name="q2" value="false"> Falso</label></div>
         <div class="opcion"><label><input type="radio" name="q2" value="true"> Verdadero</label></div>
@@ -134,6 +141,7 @@
     <!-- Pregunta 3 -->
     <div id="seccion-question3" class="seccion-actividad">
         <h3>Pregunta 3: Opción Múltiple</h3>
+        <div class="contador-preguntas">Pregunta 3 de 3</div>
         <p> Determinar el factor integrante de la ecuación diferencial $$ \frac{dy}{dx} + 3y = \sin(x) $$</p>
         <div class="opcion"><label><input type="radio" name="q3" value="a"> a) \\( e^{\sin(x)} \\)</label></div>
         <div class="opcion"><label><input type="radio" name="q3" value="b"> b) \( 3x \)</label></div>
@@ -207,18 +215,30 @@
             'seccion-final'
         ];
 
+        const TOTAL_PREGUNTAS = 3;
         let seccionActual = 0;
         let puntuacion = 0;
         const respuestasUsuario = {};
 
-        // Función para avanzar automáticamente después de 1.5 segundos de mostrar feedback
+        // Función para deshabilitar radios después de responder
+        function deshabilitarRadios(nombreQuestion) {
+            document.querySelectorAll(`input[name="${nombreQuestion}"]`).forEach(radio => {
+                radio.disabled = true;
+            });
+        }
+
+        // Función para avanzar automáticamente después de mostrar feedback
         function avanzarDespuesDeFeedback() {
             setTimeout(() => {
                 seccionActual++;
                 if (seccionActual < SECCIONES.length) {
                     document.getElementById(SECCIONES[seccionActual]).style.display = 'block';
-                    // Desplazar la vista a la nueva sección
                     document.getElementById(SECCIONES[seccionActual]).scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Mostrar retroalimentación final si llegamos al final
+                    if (SECCIONES[seccionActual] === 'seccion-final') {
+                        mostrarRetroalimentacionFinal();
+                    }
                 }
             }, 1500);
         }
@@ -235,6 +255,9 @@
                 respuestasUsuario[nombreQuestion] = respuesta.correcta;
                 MathJax.typesetPromise();
                 
+                // Deshabilitar opciones de respuesta
+                deshabilitarRadios(nombreQuestion);
+                
                 // Avanzar automáticamente después de mostrar feedback
                 avanzarDespuesDeFeedback();
             }
@@ -243,10 +266,9 @@
         // Función para mostrar retroalimentación final
         function mostrarRetroalimentacionFinal() {
             const correctas = Object.values(respuestasUsuario).filter(x => x).length;
-            const totalPreguntas = Object.keys(respuestasUsuario).length;
-            puntuacion = Math.round((correctas / totalPreguntas) * 100);
+            puntuacion = Math.round((correctas / TOTAL_PREGUNTAS) * 100);
             
-            let mensaje = `<p><strong>Resultado: ${correctas} de ${totalPreguntas} correctas (${puntuacion}%)</strong></p>`;
+            let mensaje = `<p><strong>Resultado: ${correctas} de ${TOTAL_PREGUNTAS} correctas (${puntuacion}%)</strong></p>`;
             
             if (puntuacion >= 80) {
                 mensaje += "<p>¡Excelente trabajo! Dominas el tema.</p>";
@@ -312,8 +334,8 @@
                         this.onclick = () => {
                             seccionActual++;
                             document.getElementById(SECCIONES[seccionActual]).style.display = 'block';
-                            mostrarRetroalimentacionFinal();
                             document.getElementById(SECCIONES[seccionActual]).scrollIntoView({ behavior: 'smooth' });
+                            mostrarRetroalimentacionFinal();
                         };
                     }
                 }
