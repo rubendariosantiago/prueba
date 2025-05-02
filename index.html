@@ -134,7 +134,7 @@
         <button id="imprimir">Imprimir</button>
     </div>
 
-    <script>
+<script>
         // Datos de las preguntas
         const respuestas = {
             q1: {
@@ -184,7 +184,7 @@
         let puntuacion = 0;
         const respuestasUsuario = {};
 
-        // Mostrar una sección
+        // Mostrar una sección (solo la actual)
         function mostrarSeccion(indice) {
             secciones.forEach((id, i) => {
                 document.getElementById(id).style.display = (i === indice) ? 'block' : 'none';
@@ -271,11 +271,6 @@
             document.querySelectorAll('button[id^="continuar-"]').forEach(boton => {
                 boton.addEventListener('click', function() {
                     const idBoton = this.id;
-                    const nombreSeccion = idBoton.split('-')[1];
-
-                    if (nombreSeccion.startsWith('q') && !document.querySelector(`input[name="${nombreSeccion}"]:checked`)) {
-                        return; // No avanzar si es pregunta y no se ha respondido
-                    }
 
                     indiceSeccionActual++;
                     if (indiceSeccionActual < secciones.length) {
@@ -312,5 +307,4 @@
             });
         });
     </script>
-</body>
 </html>
