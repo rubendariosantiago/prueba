@@ -26,18 +26,23 @@
             padding-bottom: 5px;
             margin-top: 25px;
         }
-        /* Las reglas de display: none; ahora se aplican directamente en el HTML */
-        .feedback-container {
-            margin: 15px 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
+        .seccion-actividad {
+            display: none;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #seccion-teoria1 {
+            display: block;
         }
         .feedback {
             padding: 10px;
             border-radius: 5px;
             background-color: #f8f9fa;
             border-left: 4px solid #3498db;
+            margin: 15px 0;
         }
         button {
             padding: 8px 15px;
@@ -51,9 +56,26 @@
         button:hover {
             background-color: #2980b9;
         }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
         label {
             display: block;
             margin: 8px 0;
+        }
+        .opcion {
+            margin: 5px 0;
+        }
+        @media print {
+            button {
+                display: none !important;
+            }
+            .seccion-actividad {
+                display: block !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
@@ -61,68 +83,67 @@
 
     <h2>Ecuaciones Diferenciales Lineales de Primer Orden</h2>
 
-    <div id="seccion-teoria1">
+    <!-- Sección de Teoría 1 -->
+    <div id="seccion-teoria1" class="seccion-actividad">
         <h3>Introducción</h3>
         <p>Una <strong>ecuación diferencial lineal de primer orden</strong> tiene la forma:</p>
         <p>$$ \frac{dy}{dx} + P(x)y = Q(x) $$</p>
         <button id="continuar-teoria1">Continuar</button>
     </div>
 
-    <div id="seccion-question1" style="display: none;">
+    <!-- Pregunta 1 -->
+    <div id="seccion-question1" class="seccion-actividad">
         <h3>Pregunta 1: Verdadero o Falso</h3>
         <p>La ecuación siguiente es lineal $$ \frac{dy}{dx} + y^2 = x $$.</p>
-        <label><input type="radio" name="q1" value="false"> Falso</label>
-        <label><input type="radio" name="q1" value="true"> Verdadero</label>
-        <div id="feedback-container1" class="feedback-container">
-            <div id="feedback1" class="feedback"></div>
-            <button id="continuar-question1" disabled>Continuar</button>
-        </div>
+        <div class="opcion"><label><input type="radio" name="q1" value="false"> Falso</label></div>
+        <div class="opcion"><label><input type="radio" name="q1" value="true"> Verdadero</label></div>
+        <div id="feedback1" class="feedback" style="display: none;"></div>
     </div>
 
-    <div id="seccion-teoria2" style="display: none;">
+    <!-- Sección de Teoría 2 -->
+    <div id="seccion-teoria2" class="seccion-actividad">
         <h3>Método del Factor Integrante</h3>
-        <p>El factor integrante \\( \\mu(x) = e^{\\int P(x) dx} \\) transforma la ecuación en:</p>
-        <p>$$ \\frac{d}{dx} \\mu(x) y(x)] = \\mu(x) Q(x) $$</p>
+        <p>El factor integrante \( \mu(x) = e^{\int P(x) dx} \) transforma la ecuación en:</p>
+        <p>\( \frac{d}{dx} [\mu(x) y(x)] = \mu(x) Q(x) \)</p>
         <button id="continuar-teoria2">Continuar</button>
     </div>
 
-    <div id="seccion-question2" style="display: none;">
+    <!-- Pregunta 2 -->
+    <div id="seccion-question2" class="seccion-actividad">
         <h3>Pregunta 2: Verdadero o Falso</h3>
         <p>La ecuación $$ \frac{dy}{dx} - 2y = x $$ puede resolverse integrando directamente.</p>
-        <label><input type="radio" name="q2" value="false"> Falso</label>
-        <label><input type="radio" name="q2" value="true"> Verdadero</label>
-        <div id="feedback-container2" class="feedback-container">
-            <div id="feedback2" class="feedback"></div>
-            <button id="continuar-question2" disabled>Continuar</button>
-        </div>
+        <div class="opcion"><label><input type="radio" name="q2" value="false"> Falso</label></div>
+        <div class="opcion"><label><input type="radio" name="q2" value="true"> Verdadero</label></div>
+        <div id="feedback2" class="feedback" style="display: none;"></div>
     </div>
 
-    <div id="seccion-ejemplo1" style="display: none;">
-        <h3>Ejemplo 1: Resolver la ecuacion diferencial $$ \frac{dy}{dx} + 2y = e^{-x} $$</h3>
+    <!-- Ejemplo 1 -->
+    <div id="seccion-ejemplo1" class="seccion-actividad">
+        <h3>Ejemplo 1: Resolver la ecuación diferencial $$ \frac{dy}{dx} + 2y = e^{-x} $$</h3>
         <div id="pasos-ejemplo1"></div>
         <button id="continuar-ejemplo1">Mostrar Solución Paso a Paso</button>
     </div>
 
-    <div id="seccion-ejemplo2" style="display: none;">
-        <h3>Ejemplo 2: Resolver la ecuacion diferencial $$ \frac{dy}{dx} - y = x^2 $$</h3>
+    <!-- Ejemplo 2 -->
+    <div id="seccion-ejemplo2" class="seccion-actividad">
+        <h3>Ejemplo 2: Resolver la ecuación diferencial $$ \frac{dy}{dx} - y = x^2 $$</h3>
         <div id="pasos-ejemplo2"></div>
         <button id="continuar-ejemplo2">Mostrar Solución Paso a Paso</button>
     </div>
 
-    <div id="seccion-question3" style="display: none;">
+    <!-- Pregunta 3 -->
+    <div id="seccion-question3" class="seccion-actividad">
         <h3>Pregunta 3: Opción Múltiple</h3>
-        <p> Determinar  el factor integrante de la ecuación diferencial $$ \frac{dy}{dx} + 3y = \sin(x) $$</p>
-        <label><input type="radio" name="q3" value="a"> a) \( e^{\sin(x)} \)</label>
-        <label><input type="radio" name="q3" value="b"> b) \( 3x \)</label>
-        <label><input type="radio" name="q3" value="c"> c) \( e^{3x} \)</label>
-        <label><input type="radio" name="q3" value="d"> d) \( \cos(x) \)</label>
-        <div id="feedback-container3" class="feedback-container">
-            <div id="feedback3" class="feedback"></div>
-            <button id="continuar-question3" disabled>Continuar</button>
-        </div>
+        <p> Determinar el factor integrante de la ecuación diferencial $$ \frac{dy}{dx} + 3y = \sin(x) $$</p>
+        <div class="opcion"><label><input type="radio" name="q3" value="a"> a) \\( e^{\sin(x)} \\)</label></div>
+        <div class="opcion"><label><input type="radio" name="q3" value="b"> b) \( 3x \)</label></div>
+        <div class="opcion"><label><input type="radio" name="q3" value="c"> c) \( e^{3x} \)</label></div>
+        <div class="opcion"><label><input type="radio" name="q3" value="d"> d) \( \cos(x) \)</label></div>
+        <div id="feedback3" class="feedback" style="display: none;"></div>
     </div>
 
-    <div id="seccion-final" style="display: none;">
+    <!-- Sección Final -->
+    <div id="seccion-final" class="seccion-actividad">
         <h3>¡Fin de la actividad!</h3>
         <div id="retroalimentacion-general" class="feedback"></div>
         <h4>Referencias Adicionales</h4>
@@ -134,8 +155,9 @@
         <button id="imprimir">Imprimir</button>
     </div>
 
-<script>
-        // Datos de las preguntas
+    <script>
+
+      // Datos de las preguntas
         const respuestas = {
             q1: {
                 true: { texto: "❌ Incorrecto. La ecuación no es lineal por el término \( y^2 \).", correcta: false },
@@ -148,7 +170,7 @@
             q3: {
                 a: { texto: "❌ Incorrecto. Revisa la fórmula del factor integrante.", correcta: false },
                 b: { texto: "❌ Incorrecto. \( P(x) = 3 \), no \( 3x \).", correcta: false },
-                c: { texto: "✅ Correcto. \( \mu(x) = e^{\int 3 dx} = e^{3x} \).", correcta: true },
+                c: { texto: "✅ Correcto. \( \mu(x) = e^{3x} \).", correcta: true },
                 d: { texto: "❌ Incorrecto. El factor integrante no usa \( Q(x) \).", correcta: false }
             }
         };
@@ -183,12 +205,15 @@
         let indiceSeccionActual = 0;
         let puntuacion = 0;
         const respuestasUsuario = {};
+        const preguntasRespondidas = {}; // Para rastrear qué preguntas se han respondido
 
         // Mostrar una sección (solo la actual)
         function mostrarSeccion(indice) {
-            secciones.forEach((id, i) => {
-                document.getElementById(id).style.display = (i === indice) ? 'block' : 'none';
-            });
+            if (indice >= 0 && indice < secciones.length) {
+                secciones.forEach((id, i) => {
+                    document.getElementById(id).style.display = (i === indice) ? 'block' : 'none';
+                });
+            }
             if (secciones[indice] === 'seccion-final') {
                 mostrarRetroalimentacionFinal();
             }
@@ -199,7 +224,7 @@
             const feedbackContainer = document.getElementById(`feedback-container${nombreQuestion.slice(1)}`);
             const radioSeleccionado = document.querySelector(`input[name="${nombreQuestion}"]:checked`);
 
-            if (radioSeleccionado && respuestas[nombreQuestion]) {
+            if (radioSeleccionado && respuestas[nombreQuestion] && !preguntasRespondidas[nombreQuestion]) {
                 const feedbackDiv = document.getElementById(`feedback${nombreQuestion.slice(1)}`);
                 feedbackDiv.innerHTML = respuestas[nombreQuestion][radioSeleccionado.value].texto;
                 feedbackContainer.style.maxHeight = '200px';
@@ -209,6 +234,11 @@
                     continuarBtn.disabled = false;
                 }
                 respuestasUsuario[nombreQuestion] = respuestas[nombreQuestion][radioSeleccionado.value].correcta;
+                preguntasRespondidas[nombreQuestion] = true; // Marcar la pregunta como respondida
+                // Deshabilitar los radio buttons para que no se pueda volver a contestar
+                document.querySelectorAll(`input[name="${nombreQuestion}"]`).forEach(radio => {
+                    radio.disabled = true;
+                });
             }
         }
 
@@ -271,7 +301,6 @@
             document.querySelectorAll('button[id^="continuar-"]').forEach(boton => {
                 boton.addEventListener('click', function() {
                     const idBoton = this.id;
-
                     indiceSeccionActual++;
                     if (indiceSeccionActual < secciones.length) {
                         mostrarSeccion(indiceSeccionActual);
@@ -288,8 +317,12 @@
                 indiceSeccionActual = 0;
                 puntuacion = 0;
                 respuestasUsuario = {};
+                preguntasRespondidas = {}; // Reiniciar el rastreo de preguntas respondidas
                 mostrarSeccion(0); // Mostrar la primera sección
-                document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+                document.querySelectorAll('input[type="radio"]').forEach(r => {
+                    r.checked = false;
+                    r.disabled = false; // Habilitar los radio buttons al reiniciar
+                });
                 document.querySelectorAll('.feedback-container').forEach(f => {
                     f.style.maxHeight = '0';
                     f.querySelector('.feedback').innerHTML = '';
@@ -307,4 +340,5 @@
             });
         });
     </script>
+</body>
 </html>
